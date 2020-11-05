@@ -1,0 +1,802 @@
+.checkbox_overflow {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.MedicalStaff_main {
+  width: 100%;
+  height: 100%;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  padding: 5px;
+}
+
+.MedicalStaff_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.MedicalStaff_filter {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.MedicalStaff_filter_filter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: max-content;
+  flex-wrap: wrap;
+}
+
+.MedicalStaff_filter_item {
+  margin: 5px 5px 0 0;
+}
+
+.MedicalStaff_title_wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  min-height: 30px;
+}
+
+.MedicalStaff_filter .ant_drop_menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 220px;
+  border-radius: 2px;
+  color: white;
+  background: inherit;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.Ant_Drop_Block_Style {
+  background: #414e60;
+  width: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.Ant_Drop_Block_Style_text {
+  color: white;
+}
+
+.Ant_Drop_Block_Style .ant-dropdown-menu-item:hover,
+.Ant_Drop_Block_Style .ant-dropdown-menu-submenu-title:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.Ant_Drop_Block_Style .ant-dropdown-menu-item:last-child:hover,
+.Ant_Drop_Block_Style .ant-dropdown-menu-submenu-title:last-child:hover {
+  background: inherit;
+}
+
+.Ant_Drop_Block_Style_btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.default_btn_style {
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
+  color: white;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.Ant_Drop_Block_Style .ant-dropdown-menu-item:last-child {
+  padding: 0 5px;
+  width: 100%;
+  margin: 5px 0;
+  cursor: inherit;
+}
+
+.default_btn_style:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.default_btn_style:active {
+  background: inherit;
+  color: #0d0f13;
+}
+
+.non_pointer:hover {
+  cursor: inherit;
+  background: inherit;
+}
+
+.Ant_Drop_Block_Style_item_list .ant-checkbox-group-item {
+  color: white;
+}
+
+.Ant_Drop_Block_Style_item_list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Ant_Drop_Block_Style_input {
+  background: inherit;
+  width: 100%;
+}
+
+.Ant_Drop_Block_Style_input input {
+  background: inherit;
+  color: white;
+}
+
+.Ant_Drop_Block_Style_input svg {
+  fill: white;
+}
+
+.Ant_Drop_Block_Style_input.Ant_Drop_Block_Style_input:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.Ant_Drop_Block_Style_input.ant-input-affix-wrapper:focus,
+.Ant_Drop_Block_Style_input.ant-input-affix-wrapper-focused {
+  box-shadow: none;
+  background: inherit;
+}
+
+.ant-dropdown-menu-item .ant-picker {
+  width: 100%;
+}
+
+.Ant_Drop_Block_Style_Checkbox_Group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.Ant_Drop_Block_Style_Checkbox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.Ant_Drop_Block_Style .ant-checkbox-group-item.ant-checkbox-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 2px 0;
+}
+
+.Ant_Drop_Block_Style .ant-checkbox-group-item.ant-checkbox-wrapper:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.Ant_Drop_Block_Style .ant-checkbox-group-item > .ant-checkbox {
+  width: 15px;
+}
+
+.Ant_Drop_Block_Style .ant-checkbox-group-item > span:last-child {
+  width: calc(100% - 15px);
+  color: #ffffff;
+}
+
+.MedicalStaff_filter_btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+  justify-content: space-around;
+  margin-top: -5px;
+}
+
+.MedicalStaff_filter_btn_icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.MedicalStaff_filter_btn_icon:last-child {
+  margin-top: -4px;
+}
+
+.MedicalStaff_filter_btn_icon,
+.MedicalStaff_filter_btn_icon svg g {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+.MedicalStaff_filter_btn_icon.active,
+.MedicalStaff_filter_btn_icon.active svg g {
+  fill: lightgreen;
+}
+
+.btn_action.first_off .MedicalStaff_body_wrap:nth-child(1),
+.btn_action.third_off .MedicalStaff_body_wrap:nth-child(2),
+.btn_action.second_off .MedicalStaff_body_wrap:nth-child(3),
+.btn_action.second_off .MedicalStaff_body_wrap:nth-child(4),
+.btn_action.fourth_off .MedicalStaff_body_wrap:nth-child(5) {
+  display: none;
+}
+
+.MedicalStaff_Tab_One_Style {
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100% - 30px);
+
+  width: 100%;
+}
+
+.MedicalStaff_body_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: calc(100% - 40px);
+  width: 100%;
+  grid-gap: 5px;
+}
+
+.MedicalStaff_body_wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5px;
+  border: 1px solid white;
+}
+
+.MedicalStaff_body_graph_item {
+  height: calc(100% - 25px);
+  position: relative;
+}
+
+.MedicalStaff_body_wrap:nth-child(1) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 3;
+}
+
+.MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 2 / span 2;
+  grid-row: 3 / span 1;
+}
+
+.MedicalStaff_body,
+.MedicalStaff_body_graph {
+  height: 100%;
+  width: 100%;
+}
+
+.MedicalStaff_body_graph_item {
+  width: 100%;
+}
+
+.MedicalStaff_body_graph_item canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.MedicalStaff_body_graph {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.MedicalStaff_body_graph > span {
+  font-size: 16px;
+  height: 25px;
+}
+
+/*first_off.second_on.third_on.fourth_on*/
+.btn_action.first_off.second_on.third_on.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 3;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 2;
+}
+
+/*first_on.second_off.third_on.fourth_on*/
+.btn_action.first_on.second_off.third_on.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr max-content;
+}
+
+.btn_action.first_on.second_off.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(1) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.btn_action.first_on.second_off.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_on.second_off.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+/*first_on.second_on.third_off.fourth_on*/
+
+.btn_action.first_on.second_on.third_off.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(1) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 3;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 2 / span 2;
+  grid-row: 2 / span 2;
+}
+
+/*first_on.second_on.third_on.fourth_off*/
+.btn_action.first_on.second_on.third_on.fourth_off .MedicalStaff_body_wrapper {
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_on.second_on.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_on.second_on.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+/*first_off.second_off.third_on.fourth_on*/
+.btn_action.first_off.second_off.third_on.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_off.second_off.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_off.third_on.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+/*first_off.second_off.third_off.fourth_on*/ /*first_off.second_off.third_on.fourth_off*/ /*first_off.second_on.third_off.fourth_off*/ /*first_on.second_off.third_off.fourth_off*/
+.btn_action.first_on.second_off.third_off.fourth_off .MedicalStaff_body_wrapper,
+.btn_action.first_off.second_on.third_off.fourth_off .MedicalStaff_body_wrapper,
+.btn_action.first_off.second_off.third_on.fourth_off .MedicalStaff_body_wrapper,
+.btn_action.first_off.second_off.third_off.fourth_on
+  .MedicalStaff_body_wrapper {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.btn_action.first_on.second_off.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(1),
+.btn_action.first_off.second_on.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(3),
+.btn_action.first_off.second_on.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(4),
+.btn_action.first_off.second_off.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(2),
+.btn_action.first_off.second_off.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  width: 100%;
+}
+
+/*first_on.second_on.third_off.fourth_off*/
+.btn_action.first_on.second_on.third_off.fourth_off .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(1) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_on.second_on.third_off.fourth_off
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+/*first_on.second_off.third_on.fourth_off*/
+.btn_action.first_on.second_off.third_on.fourth_off .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.btn_action.first_on.second_off.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 2;
+}
+
+/*first_on.second_off.third_off.fourth_on*/
+.btn_action.first_on.second_off.third_off.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/*first_off.second_on.third_off.fourth_on*/
+.btn_action.first_off.second_on.third_off.fourth_on .MedicalStaff_body_wrapper {
+  grid-template-columns: 1fr 1fr;
+}
+
+.btn_action.first_off.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_on.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 1;
+}
+
+/*first_off.second_on.third_on.fourth_off*/
+
+.btn_action.first_off.second_on.third_on.fourth_off {
+}
+
+.btn_action.first_off.second_on.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(3) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(4) {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.btn_action.first_off.second_on.third_on.fourth_off
+  .MedicalStaff_body_wrap:nth-child(2) {
+  grid-column: 2 / span 2;
+  grid-row: 1 / span 2;
+}
+
+.btn_action.first_on.second_off.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(5) {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 2;
+}
+
+@media (max-width: 1350px) {
+  .MedicalStaff_body_wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
+
+  .MedicalStaff_body_wrap:nth-child(1) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(2) {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+  }
+
+  /*first_off.second_on.third_on.fourth_on*/
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(2) {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  /*first_on.second_off.third_on.fourth_on*/
+  .btn_action.first_on.second_off.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(1) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  .btn_action.first_on.second_off.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(2) {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  .btn_action.first_on.second_off.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+  }
+
+  /*first_on.second_on.third_off.fourth_on*/
+  .btn_action.first_on.second_on.third_off.fourth_on
+    .MedicalStaff_body_wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .btn_action.first_on.second_on.third_off.fourth_on
+    .MedicalStaff_body_wrap:nth-child(1) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  .btn_action.first_on.second_on.third_off.fourth_on
+    .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .btn_action.first_on.second_on.third_off.fourth_on
+    .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .btn_action.first_on.second_on.third_off.fourth_on
+    .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+    min-height: 400px;
+  }
+
+  /*first_on.second_on.third_on.fourth_off*/
+  .btn_action.first_on.second_on.third_on.fourth_off
+    .MedicalStaff_body_wrapper {
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .btn_action.first_on.second_on.third_on.fourth_off
+    .MedicalStaff_body_wrap:nth-child(1) {
+    grid-row: 1 / span 3;
+  }
+
+  .btn_action.first_on.second_on.third_on.fourth_off
+    .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .btn_action.first_on.second_on.third_on.fourth_off
+    .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+  }
+
+  /*first_off.second_off.third_on.fourth_on*/
+  .btn_action.first_off.second_off.third_on.fourth_on
+    .MedicalStaff_body_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn_action.first_off.second_off.third_on.fourth_on
+    .MedicalStaff_body_wrapper
+    > div {
+    width: 100%;
+  }
+
+  /*first_off.second_on.third_off.fourth_off*/
+  .btn_action.first_off.second_on.third_off.fourth_off
+    .MedicalStaff_body_wrapper,
+  .btn_action.first_off.second_off.third_on.fourth_off
+    .MedicalStaff_body_wrapper,
+  .btn_action.first_on.second_off.third_off.fourth_off
+    .MedicalStaff_body_wrapper {
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /*first_on.second_off.third_off.fourth_on*/
+  .btn_action.first_on.second_off.third_off.fourth_on
+    .MedicalStaff_body_wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1050px) {
+  .MedicalStaff_body_wrapper {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+    overflow-y: scroll;
+  }
+
+  .MedicalStaff_body_wrapper > div:first-child {
+    min-height: 600px;
+  }
+
+  .MedicalStaff_body_wrapper > div {
+    min-height: 400px;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(1) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(2) {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 1 / span 1;
+    grid-row: 4 / span 1;
+  }
+
+  .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 1 / span 1;
+    grid-row: 5 / span 1;
+  }
+
+  /*first_off.second_on.third_on.fourth_on*/
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(400px, 1fr);
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(2) {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(4) {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 1;
+  }
+
+  .btn_action.first_off.second_on.third_on.fourth_on
+    .MedicalStaff_body_wrap:nth-child(5) {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 1;
+  }
+}
+
+@media (max-width: 450px) {
+  .MedicalStaff_body_wrap:nth-child(5) canvas {
+    padding-top: 20px;
+  }
+}
