@@ -85,8 +85,6 @@ export const setHorizontalBarDataSet = (data, key) => {
     }
   })
 
-  console.log(ob)
-
   return {
     labels: Object.keys(ob),
     datasets: [
@@ -143,5 +141,56 @@ export const setHorizontalBarOptions = (data, key) => {
         padding: 2,
       },
     },
+  }
+}
+
+export const setGenderMed = (data) => {
+  let male = [0, 0, 0, 0, 0, 0, 0]
+  let female = [0, 0, 0, 0, 0, 0, 0]
+
+  data.forEach((i) => {
+    if (i.gender === 'male') {
+      countAge(male, i.age)
+    } else {
+      countAge(female, i.age)
+    }
+  })
+
+  return {
+    labels: ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +', 'Не указан'],
+    datasets: [
+      {
+        label: 'Женщины',
+        // backgroundColor: "#bc9d94",
+        backgroundColor: '#7fffd480',
+        stack: 'Stack 0',
+        data: female,
+      },
+      {
+        label: 'Мужчины',
+        // backgroundColor: "#728ea2",
+        backgroundColor: '#ff7f5080',
+        stack: 'Stack 0',
+        data: male,
+      },
+    ],
+  }
+}
+
+const countAge = (arr, age) => {
+  if (age <= 29) {
+    arr[0] = ++arr[0]
+  } else if (age >= 30 && age <= 39) {
+    arr[1] = ++arr[1]
+  } else if (age >= 40 && age <= 49) {
+    arr[2] = ++arr[2]
+  } else if (age >= 50 && age <= 59) {
+    arr[3] = ++arr[3]
+  } else if (age >= 60 && age <= 69) {
+    arr[4] = ++arr[4]
+  } else if (age >= 70) {
+    arr[5] = ++arr[5]
+  } else {
+    arr[6] = ++arr[6]
   }
 }

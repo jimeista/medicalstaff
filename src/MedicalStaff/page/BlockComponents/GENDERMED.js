@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { MedicalStaffChart } from '../MedicalStaffChart'
-import { TabTwoPData, TabTwoPOption } from '../ChartOption'
+import { TabTwoPOption } from '../ChartOption'
+import { setGenderMed } from '../../utils/chart'
 
-export const GENDERMED = () => {
+export const GENDERMED = ({ data }) => {
   return (
     <div className='MedicalStaff_body_wrap second_block'>
       <div className='MedicalStaff_body'>
@@ -12,7 +13,7 @@ export const GENDERMED = () => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='Bar'
-              dataSet={TabTwoPData}
+              dataSet={setGenderMed(data)}
               option={TabTwoPOption}
             />
           </div>
