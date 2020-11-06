@@ -7,7 +7,7 @@ export const setTypeMed = (data) => {
   }
 
   data.forEach((i) => {
-    let key = i['contact-info']
+    let key = i['staff-type']
     if (key) {
       counter = {
         ...counter,
@@ -30,7 +30,7 @@ export const setTypeMed = (data) => {
   }
 }
 
-export const setFormmed = (data) => {
+export const setFormMed = (data) => {
   let helps = {
     'Амбулаторная помощь': 0,
     'Стационарная помощь': 0,
@@ -69,5 +69,79 @@ export const setFormmed = (data) => {
         data: Object.values(helps),
       },
     ],
+  }
+}
+
+export const setHorizontalBarDataSet = (data, key) => {
+  let ob = {}
+
+  data.forEach((i) => {
+    let name = i[key].toLowerCase()
+
+    if (ob[name] === undefined) {
+      ob = { ...ob, [name]: 0 }
+    } else {
+      ob = { ...ob, [name]: ++ob[name] }
+    }
+  })
+
+  console.log(ob)
+
+  return {
+    labels: Object.keys(ob),
+    datasets: [
+      {
+        /* label: "Исполнение",*/
+        backgroundColor: '#ff8c0080',
+        data: Object.values(ob),
+      },
+    ],
+  }
+}
+
+export const setHorizontalBarOptions = (data, key) => {
+  let ob = {}
+  data.forEach((i) => {
+    ob = {
+      ...ob,
+      [i[key]]: i[key],
+    }
+  })
+  return {
+    legend: {
+      display: false,
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      scaleLabel: {
+        display: false,
+      },
+      xAxes: [
+        {
+          display: false,
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            display: false,
+          },
+        },
+      ],
+    },
+    plugins: {
+      datalabels: {
+        formatter: function (value, ctx2) {
+          return Object.values(ob)[ctx2.dataIndex] + ' - ' + value + ' шт.'
+        },
+        align: 'end',
+        anchor: 'start',
+        rotation: 0,
+        clamp: true,
+        color: 'rgb(255,255,255)',
+        padding: 2,
+      },
+    },
   }
 }

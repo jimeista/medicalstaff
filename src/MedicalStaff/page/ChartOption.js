@@ -1,4 +1,4 @@
-import {compactInteger} from "./DatePicker/FormaterNum";
+import { compactInteger } from './DatePicker/FormaterNum'
 /*
 export const CrimeLineChart_Line_option = {
   plugins: {
@@ -182,482 +182,483 @@ export const CrimeLineChart_Line_Dataset = {
   ],
 };*/
 export const district = [
-    'Алатауский район',
-    'Алмалинский район',
-    'Ауэзовский район',
-    'Бостандыкский район',
-    'Жетысуский район',
-    'Медеуский район',
-    'Наурызбайский район',
-    'Турксибский район'
-];
+  'Алатауский район',
+  'Алмалинский район',
+  'Ауэзовский район',
+  'Бостандыкский район',
+  'Жетысуский район',
+  'Медеуский район',
+  'Наурызбайский район',
+  'Турксибский район',
+]
 export const district2 = [
-    'Алатауский район',
-    'Алмалинский район',
-    'Ауэзовский район',
-    'Бостандыкский район',
-    'Жетысуский район',
-    'Медеуский район',
-    'Наурызбайский район',
-    'Турксибский район',
-    'Не указан'
-];
+  'Алатауский район',
+  'Алмалинский район',
+  'Ауэзовский район',
+  'Бостандыкский район',
+  'Жетысуский район',
+  'Медеуский район',
+  'Наурызбайский район',
+  'Турксибский район',
+  'Не указан',
+]
 
 export const name = [
-    "АО Казахский научно-исследовательский институт онкологии и радиологии",
-    "Научно-исследовательский институт кардиологии и внутренних болезней",
-    "Национальный научный центр хирургии имени А.Н.Сызганова",
-    "Центральная клиническая больница",
-    "Городская поликлиника №1",
-    "Городская поликлиника №2",
-    "Городская поликлиника №3",
-    "Городская поликлиника №5",
-    "Городская поликлиника №11",
-    "Городская поликлиника №17",
-    "Городская поликлиника №55"
-
-
+  'АО Казахский научно-исследовательский институт онкологии и радиологии',
+  'Научно-исследовательский институт кардиологии и внутренних болезней',
+  'Национальный научный центр хирургии имени А.Н.Сызганова',
+  'Центральная клиническая больница',
+  'Городская поликлиника №1',
+  'Городская поликлиника №2',
+  'Городская поликлиника №3',
+  'Городская поликлиника №5',
+  'Городская поликлиника №11',
+  'Городская поликлиника №17',
+  'Городская поликлиника №55',
 ]
 export const age = [
-    '20-29',
-    '30-39',
-    '40-49',
-    '50-59',
-    '60-69',
-    '70 +',
-    'Не указан',
-
+  '20-29',
+  '30-39',
+  '40-49',
+  '50-59',
+  '60-69',
+  '70 +',
+  'Не указан',
 ]
-export const types = [
-    'Мужчины',
-    'Женщины'
+export const types = ['Мужчины', 'Женщины']
 
+export const status = [
+  'Рабочее',
+  'Нерабочее',
+  'Требует ремонта',
+  'Прочее',
+  'На ремонте',
+  'Резерв',
 ]
-
-export const status = ['Рабочее', 'Нерабочее', 'Требует ремонта', 'Прочее', 'На ремонте', 'Резерв']
-
 
 export const firstChartData = {
-    labels: district2,
-    datasets: [
-        {
-            /* label: "Исполнение",*/
-            backgroundColor: "#ff8c0080",
-            data: [1954, 16280, 24617, 27889, 7424, 14564, 2077, 15306, 930],
-
-
-        },
-
-    ],
-};
+  labels: district2,
+  datasets: [
+    {
+      /* label: "Исполнение",*/
+      backgroundColor: '#ff8c0080',
+      data: [1954, 16280, 24617, 27889, 7424, 14564, 2077, 15306, 930],
+    },
+  ],
+}
 export const firstChartOption = {
-    legend: {
+  legend: {
+    display: false,
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
+    },
+    xAxes: [
+      {
         display: false,
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-        scaleLabel: {
-            display: false,
+      },
+    ],
+    yAxes: [
+      {
+        ticks: {
+          display: false,
         },
-        xAxes: [
-            {
-                display: false,
-            },
-        ],
-        yAxes: [
-            {
-
-
-                ticks: {
-
-                    display: false,
-                },
-            },
-        ],
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      formatter: function (value, ctx2) {
+        return district2[ctx2.dataIndex] + ' - ' + value + ' шт.'
+      },
+      align: 'end',
+      anchor: 'start',
+      rotation: 0,
+      clamp: true,
+      color: 'rgb(255,255,255)',
+      padding: 2,
     },
-    plugins: {
-        datalabels: {
-            formatter: function (value, ctx2) {
-                return district2[ctx2.dataIndex] + " - " + value + ' шт.'
-            },
-            align: "end",
-            anchor: "start",
-            rotation: 0,
-            clamp: true,
-            color: "rgb(255,255,255)",
-            padding: 2,
-
-        },
-    },
-};
-
+  },
+}
 
 export const secondChartData = {
-    labels: age,
-    datasets: [
-        {
-            label: false,
-            backgroundColor: ["#5a9173", '#ce4257', "#255f85", '#ec9a29', "#364156", '#c0c0c0'],
-            data: [110818, 137, 53, 22, 6, 7],
-            borderWidth: 1,
-            borderColor: 'gray',
-            /*        barPercentage: 0.5,*/
-            /*   barThickness: 6,*/
-            /*      maxBarThickness: 8,*/
-            minBarLength: 12,
-
-
-        },
-
-    ],
-};
+  labels: age,
+  datasets: [
+    {
+      label: false,
+      backgroundColor: [
+        '#5a9173',
+        '#ce4257',
+        '#255f85',
+        '#ec9a29',
+        '#364156',
+        '#c0c0c0',
+      ],
+      data: [110818, 137, 53, 22, 6, 7],
+      borderWidth: 1,
+      borderColor: 'gray',
+      /*        barPercentage: 0.5,*/
+      /*   barThickness: 6,*/
+      /*      maxBarThickness: 8,*/
+      minBarLength: 12,
+    },
+  ],
+}
 export const secondChartOption = {
-    legend: {
+  legend: {
+    display: false,
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
+    },
+    xAxes: [
+      {
+        display: true,
+        fontColor: 'white',
+        ticks: {
+          fontColor: 'rgba(255,255,255,0.5)', // this here
+        },
+      },
+    ],
+    yAxes: [
+      {
         display: false,
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-        scaleLabel: {
-            display: false,
+
+        ticks: {
+          fontColor: 'white',
+          display: true,
         },
-        xAxes: [
-            {
-                display: true,
-                fontColor: 'white',
-                ticks: {
-                    fontColor: "rgba(255,255,255,0.5)", // this here
-                },
-
-            },
-        ],
-        yAxes: [
-            {
-                display: false,
-
-                ticks: {
-                    fontColor: 'white',
-                    display: true,
-                },
-            },
-        ],
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      formatter: function (value, ctx2) {
+        return status[ctx2.dataIndex] + ' - ' + value + ' шт.'
+      },
+      align: 'end',
+      anchor: 'start',
+      rotation: 0,
+      clamp: true,
+      color: 'rgb(255,255,255)',
+      padding: 2,
     },
-    plugins: {
-        datalabels: {
-            formatter: function (value, ctx2) {
-                return status[ctx2.dataIndex] + " - " + value + ' шт.'
-            },
-            align: "end",
-            anchor: "start",
-            rotation: 0,
-            clamp: true,
-            color: "rgb(255,255,255)",
-            padding: 2,
-
-        },
-    },
-};
-
-
+  },
+}
 
 const wear = ['Мужчины', 'Женщины']
-export const TabTwoPData={
-    labels: age,
-    datasets: [{
-        label: [wear[0]],
-
-       // backgroundColor: "#bc9d94",
-        backgroundColor: "#7fffd480",
-        stack: 'Stack 0',
-        data: [27749, 21740, 18692, 17970, 24892, 987, 20000]
-    }, {
-        label: [wear[1]],
-       // backgroundColor: "#728ea2",
-        backgroundColor: "#ff7f5080",
-        stack: 'Stack 0',
-        data: [13885, 4040, 2463, 2414, 3637, 750, 15000]
-    }, ]
-}
-export const TabTwoPOption =
-
+export const TabTwoPData = {
+  labels: age,
+  datasets: [
     {
-        legend: {
-            labels:{
-              fontColor: 'white'
-            },
-            display: true,
-            fontColor: 'white',
+      label: [wear[0]],
+
+      // backgroundColor: "#bc9d94",
+      backgroundColor: '#7fffd480',
+      stack: 'Stack 0',
+      data: [27749, 21740, 18692, 17970, 24892, 987, 20000],
+    },
+    {
+      label: [wear[1]],
+      // backgroundColor: "#728ea2",
+      backgroundColor: '#ff7f5080',
+      stack: 'Stack 0',
+      data: [13885, 4040, 2463, 2414, 3637, 750, 15000],
+    },
+  ],
+}
+export const TabTwoPOption = {
+  legend: {
+    labels: {
+      fontColor: 'white',
+    },
+    display: true,
+    fontColor: 'white',
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
+    },
+    xAxes: [
+      {
+        ticks: {
+          fontColor: 'white',
+          ticks: {
+            fontColor: 'rgba(255,255,255,0.5)', // this here
+          },
+          display: true,
         },
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            scaleLabel: {
-                display: false,
-            },
-            xAxes: [
-                {
-
-
-                    ticks: {
-                        fontColor: 'white',
-                        ticks: {
-                            fontColor: "rgba(255,255,255,0.5)", // this here
-                        },
-                        display: true,
-                    },
-                },
-            ],
-            yAxes: [
-
-                {
-                    display: false,
-                    ticks: {
-                        fontColor: 'white',
-                        ticks: {
-                            fontColor: "rgba(255,255,255,0.5)", // this here
-                        },
-                        display: true,
-                    },
-                },
-            ],
+      },
+    ],
+    yAxes: [
+      {
+        display: false,
+        ticks: {
+          fontColor: 'white',
+          ticks: {
+            fontColor: 'rgba(255,255,255,0.5)', // this here
+          },
+          display: true,
         },
-        plugins: {
-            datalabels: {
-
-                rotation: 0,
-                clamp: true,
-                color: "rgb(255,255,255)",
-                padding: 2,
-
-            },
-        },
-    };
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      rotation: 0,
+      clamp: true,
+      color: 'rgb(255,255,255)',
+      padding: 2,
+    },
+  },
+}
 let personal = [
-    'Врачебный персонал',
-    'Средний мед. персонал',
-    'младший мед. персонал',
-    'прочий персонал',
+  'Врачебный персонал',
+  'Средний мед. персонал',
+  'младший мед. персонал',
+  'прочий персонал',
 ]
 export const personalData1 = {
-    labels: personal,
-    datasets: [
-        {
-            label: true,
-            borderWidth: 0.5,
-            borderColor: 'rgba(255, 255, 255, 0.5)',
-            backgroundColor: ["#5a9173", '#ce4257', "#255f85", '#ec9a29'],
-            data: [558, 386, 52, 426,],
-
-
-        },
-
-
-    ],
-};
+  labels: personal,
+  datasets: [
+    {
+      label: true,
+      borderWidth: 0.5,
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+      backgroundColor: ['#5a9173', '#ce4257', '#255f85', '#ec9a29'],
+      data: [558, 386, 52, 426],
+    },
+  ],
+}
 export const personalOption1 = {
-    legend: {
-        display: true,
-        position: 'bottom',
-        labels: {
-            fontColor: 'rgba(255, 255, 255, 1)'
-        }
+  legend: {
+    display: true,
+    position: 'bottom',
+    labels: {
+      fontColor: 'rgba(255, 255, 255, 1)',
     },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-
-        scaleLabel: {
-            display: false,
-        },
-        xAxes: [
-            {
-                display: false,
-
-            },
-        ],
-        yAxes: [
-            {
-                display: false,
-
-            },
-        ],
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
     },
-    plugins: {
-        datalabels: {
-            align: "center",
-            anchor: "center",
-            clamp: true,
-            color: "rgb(255,255,255)",
-        },
+    xAxes: [
+      {
+        display: false,
+      },
+    ],
+    yAxes: [
+      {
+        display: false,
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      align: 'center',
+      anchor: 'center',
+      clamp: true,
+      color: 'rgb(255,255,255)',
     },
-};
+  },
+}
 
 let helps = [
-    'Амбулаторная помощь',
-    'Стационарная помощь',
-    'прочее',
-    'не указано'
+  'Амбулаторная помощь',
+  'Стационарная помощь',
+  'прочее',
+  'не указано',
 ]
-export const personalData2= {
-    labels: helps,
-    datasets: [
-        {
-            label: true,
-            borderWidth: 0.5,
+export const personalData2 = {
+  labels: helps,
+  datasets: [
+    {
+      label: true,
+      borderWidth: 0.5,
 
-            borderColor: 'rgba(255, 255, 255, 0.5)',
-            backgroundColor: ["#5a9173", '#ce4257', "#255f85", '#ec9a29'],
-            data: [558, 386, 52, 426],
-
-
-        },
-
-
-    ],
-};
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+      backgroundColor: ['#5a9173', '#ce4257', '#255f85', '#ec9a29'],
+      data: [558, 386, 52, 426],
+    },
+  ],
+}
 export const personalOption2 = {
-    legend: {
-        display: true,
-        position: 'bottom',
-        labels: {
-            fontColor: 'rgba(255, 255, 255, 1)'
-        }
+  legend: {
+    display: true,
+    position: 'bottom',
+    labels: {
+      fontColor: 'rgba(255, 255, 255, 1)',
     },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-
-        scaleLabel: {
-            display: false,
-        },
-        xAxes: [
-            {
-                display: false,
-
-            },
-        ],
-        yAxes: [
-            {
-                display: false,
-
-            },
-        ],
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
     },
-    plugins: {
-        datalabels: {
-            align: "center",
-            anchor: "center",
-            clamp: true,
-            color: "rgb(255,255,255)",
-        },
+    xAxes: [
+      {
+        display: false,
+      },
+    ],
+    yAxes: [
+      {
+        display: false,
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      align: 'center',
+      anchor: 'center',
+      clamp: true,
+      color: 'rgb(255,255,255)',
     },
-};
-
-
+  },
+}
 
 export const apparatus = [
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
-    'ИК/МРТ ',
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
-    'ИК/МРТ ',
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
-    'ИК/МРТ ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
+  'ИК/МРТ ',
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
+  'ИК/МРТ ',
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
+  'ИК/МРТ ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
 ]
 export const apparatus2 = [
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
-    'ИК/МРТ ',
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-    'Ингаляторы',
-    'Наркозно-дыхательные аппараты',
-    'ИК/МРТ ',
-    'Фонендоскопы',
-    'Инструменты рентген аппарата',
-    'ИВЛ',
-
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
+  'ИК/МРТ ',
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
+  'Ингаляторы',
+  'Наркозно-дыхательные аппараты',
+  'ИК/МРТ ',
+  'Фонендоскопы',
+  'Инструменты рентген аппарата',
+  'ИВЛ',
 ]
 export const MTFirstChartData = {
-    labels: apparatus,
-    datasets: [
-        {
-            /* label: "Исполнение",*/
-            backgroundColor: "#ff8c0080",
-            data: [1954, 16280, 24617, 27889, 7424, 14564, 1954, 16280, 24617, 27889, 7424, 14564, 1954, 16280, 24617, 27889, 7424, 14564, 7424, 14564],
-        },
-
-    ],
-};
+  labels: apparatus,
+  datasets: [
+    {
+      /* label: "Исполнение",*/
+      backgroundColor: '#ff8c0080',
+      data: [
+        1954,
+        16280,
+        24617,
+        27889,
+        7424,
+        14564,
+        1954,
+        16280,
+        24617,
+        27889,
+        7424,
+        14564,
+        1954,
+        16280,
+        24617,
+        27889,
+        7424,
+        14564,
+        7424,
+        14564,
+      ],
+    },
+  ],
+}
 export const MTFirstChartData2 = {
-    labels: apparatus2,
-    datasets: [
-        {
-            /* label: "Исполнение",*/
-            backgroundColor: "#ff8c0080",
-            data: [1954, 16280, 24617, 27889, 7424, 14564, 1954, 16280, 24617, 27889, 7424, 14564, 1954, 16280, 24617, ],
-        },
-
-    ],
-};
+  labels: apparatus2,
+  datasets: [
+    {
+      /* label: "Исполнение",*/
+      backgroundColor: '#ff8c0080',
+      data: [
+        1954,
+        16280,
+        24617,
+        27889,
+        7424,
+        14564,
+        1954,
+        16280,
+        24617,
+        27889,
+        7424,
+        14564,
+        1954,
+        16280,
+        24617,
+      ],
+    },
+  ],
+}
 export const MTFirstChartOption = {
-    legend: {
+  legend: {
+    display: false,
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    scaleLabel: {
+      display: false,
+    },
+    xAxes: [
+      {
         display: false,
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-        scaleLabel: {
-            display: false,
+      },
+    ],
+    yAxes: [
+      {
+        ticks: {
+          display: false,
         },
-        xAxes: [
-            {
-                display: false,
-            },
-        ],
-        yAxes: [
-            {
-
-
-                ticks: {
-
-                    display: false,
-                },
-            },
-        ],
+      },
+    ],
+  },
+  plugins: {
+    datalabels: {
+      formatter: function (value, ctx2) {
+        return apparatus[ctx2.dataIndex] + ' - ' + value + ' шт.'
+      },
+      align: 'end',
+      anchor: 'start',
+      rotation: 0,
+      clamp: true,
+      color: 'rgb(255,255,255)',
+      padding: 2,
     },
-    plugins: {
-        datalabels: {
-            formatter: function (value, ctx2) {
-                return apparatus[ctx2.dataIndex] + " - " + value + ' шт.'
-            },
-            align: "end",
-            anchor: "start",
-            rotation: 0,
-            clamp: true,
-            color: "rgb(255,255,255)",
-            padding: 2,
-
-        },
-    },
+  },
 }
 /*
 

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { MedicalStaffChart } from '../MedicalStaffChart'
-import { personalOption2, personalData2 } from '../ChartOption'
-import { setFormmed } from '../../utils/chart'
+import { personalOption2 } from '../ChartOption'
+import { setFormMed } from '../../utils/chart'
 
 export const FORMMED = ({ data }) => {
   return (
@@ -16,7 +16,7 @@ export const FORMMED = ({ data }) => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='Doughnut'
-              dataSet={setFormmed(data)}
+              dataSet={setFormMed(data)}
               option={personalOption2}
             />
           </div>

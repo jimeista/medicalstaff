@@ -29,7 +29,7 @@ const MedicalStaffBlock = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMedicalStaff({}))
+    dispatch(getMedicalStaff({ ages: ['20-29'] }))
     dispatch(getOrganisations())
 
     return () => {
@@ -66,11 +66,11 @@ const MedicalStaffBlock = () => {
               <Spinner />
             ) : (
               <>
-                <FBMED />
-                <POSITIONMED />
+                <FBMED data={data} />
+                <POSITIONMED data={data} />
                 <TYPEMED data={data} />
                 <FORMMED data={data} />
-                <GENDERMED />
+                <GENDERMED data={data} />
               </>
             )}
           </div>

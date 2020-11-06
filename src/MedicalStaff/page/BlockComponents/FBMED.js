@@ -1,9 +1,13 @@
 import React from 'react'
 
 import { MedicalStaffChart } from '../MedicalStaffChart'
-import { MTFirstChartOption, MTFirstChartData } from '../ChartOption'
+// import { MTFirstChartOption, MTFirstChartData } from '../ChartOption'
+import {
+  setHorizontalBarDataSet,
+  setHorizontalBarOptions,
+} from '../../utils/chart'
 
-export const FBMED = () => {
+export const FBMED = ({ data }) => {
   return (
     <div className='MedicalStaff_body_wrap first_block'>
       <div className='MedicalStaff_body'>
@@ -12,8 +16,11 @@ export const FBMED = () => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='HorizontalBar'
-              dataSet={MTFirstChartData}
-              option={MTFirstChartOption}
+              dataSet={setHorizontalBarDataSet(
+                data,
+                'functional-unit-grouping'
+              )}
+              option={setHorizontalBarOptions(data, 'functional-unit-grouping')}
             />
           </div>
         </div>
