@@ -85,6 +85,12 @@ export const setHorizontalBarDataSet = (data, key) => {
     }
   })
 
+  // Object.keys(ob).forEach((key) => {
+  //   if (ob[key] === 0) {
+  //     delete ob[key]
+  //   }
+  // })
+
   return {
     labels: Object.keys(ob),
     datasets: [
@@ -145,8 +151,8 @@ export const setHorizontalBarOptions = (data, key) => {
 }
 
 export const setGenderMed = (data) => {
-  let male = [0, 0, 0, 0, 0, 0, 0]
-  let female = [0, 0, 0, 0, 0, 0, 0]
+  let male = [0, 0, 0, 0, 0, 0]
+  let female = [0, 0, 0, 0, 0, 0]
 
   data.forEach((i) => {
     if (i.gender === 'male') {
@@ -157,7 +163,7 @@ export const setGenderMed = (data) => {
   })
 
   return {
-    labels: ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +', 'Не указан'],
+    labels: ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +'],
     datasets: [
       {
         label: 'Женщины',
@@ -190,7 +196,5 @@ const countAge = (arr, age) => {
     arr[4] = ++arr[4]
   } else if (age >= 70) {
     arr[5] = ++arr[5]
-  } else {
-    arr[6] = ++arr[6]
   }
 }

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getMedicalStaff,
-  getOrganisations,
-  resetOrganisations,
   resetMedicalStaff,
 } from '../features/medicalstaff/medicalstaffSlice'
 import 'chartjs-plugin-datalabels'
@@ -25,15 +23,15 @@ const MedicalStaffBlock = () => {
   const [ActiveChart3, setActiveChart3] = useState(true)
   const [ActiveChart4, setActiveChart4] = useState(true)
 
-  const { status, data } = useSelector((state) => state.medicalstaff)
+  const { status, data, filtered_data } = useSelector(
+    (state) => state.medicalstaff
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getMedicalStaff({ ages: ['20-29'] }))
-    dispatch(getOrganisations())
 
     return () => {
-      dispatch(resetOrganisations())
       dispatch(resetMedicalStaff())
     }
   }, [dispatch])
@@ -66,11 +64,19 @@ const MedicalStaffBlock = () => {
               <Spinner />
             ) : (
               <>
-                <FBMED data={data} />
-                <POSITIONMED data={data} />
-                <TYPEMED data={data} />
-                <FORMMED data={data} />
-                <GENDERMED data={data} />
+                <FBMED data={filtered_data.length > 0 ? filtered_data : data} />
+                <POSITIONMED
+                  data={filtered_data.length > 0 ? filtered_data : data}
+                />
+                <TYPEMED
+                  data={filtered_data.length > 0 ? filtered_data : data}
+                />
+                <FORMMED
+                  data={filtered_data.length > 0 ? filtered_data : data}
+                />
+                <GENDERMED
+                  data={filtered_data.length > 0 ? filtered_data : data}
+                />
               </>
             )}
           </div>
