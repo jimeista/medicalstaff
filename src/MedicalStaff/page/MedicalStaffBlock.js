@@ -29,7 +29,7 @@ const MedicalStaffBlock = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMedicalStaff({ ages: ['20-29'] }))
+    dispatch(getMedicalStaff({}))
 
     return () => {
       dispatch(resetMedicalStaff())

@@ -1,33 +1,49 @@
-import React, { useMemo, useCallback, useState } from 'react'
-import { Menu, Dropdown, Button, Checkbox } from 'antd'
+import React, { useState } from 'react'
+import { Menu, Dropdown, Button, Checkbox, Input } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   getFilteredMedicalStaff,
-  setParams,
-  resetParams,
+  resetFilteredMedicalStaff,
 } from '../features/medicalstaff/medicalstaffSlice'
 
-const CheckBoxMenu = ({ titleBtn, checkBox, type, state, setState }) => {
+const CheckBoxMenu = ({
+  titleBtn,
+  checkBox,
+  type,
+  search,
+  state,
+  setState,
+  params,
+}) => {
   const [visible, setVisible] = useState(false)
+  const [filtered, setFiltered] = useState()
 
   const dispatch = useDispatch()
-  const { params } = useSelector((state) => state.medicalstaff)
 
   const handleSubmit = () => {
-    if (type === 'genders') {
-      state = state.map((g) => (g === 'Мужчины' ? 'male' : 'female'))
-    }
-    let ob = { ...params, [type]: state }
-    dispatch(setParams({ [type]: state }))
-    dispatch(getFilteredMedicalStaff(ob))
-
+    let pars = modifyParams(params)
+    dispatch(getFilteredMedicalStaff(pars))
     setVisible(false)
   }
 
   const handleReset = () => {
-    dispatch(resetParams())
     setState([])
+    params[type] = []
+    let pars = modifyParams(params)
+
+    let count = 0
+    Object.values(pars).forEach((p) => {
+      if (p.length > 0) {
+        count++
+      }
+    })
+    if (count > 0) {
+      dispatch(getFilteredMedicalStaff(pars))
+    } else {
+      dispatch(resetFilteredMedicalStaff())
+    }
+
     setVisible(false)
   }
 
@@ -35,10 +51,23 @@ const CheckBoxMenu = ({ titleBtn, checkBox, type, state, setState }) => {
     return (
       <Menu className='Ant_Drop_Block_Style'>
         <div>
+          {search && (
+            <Input
+              placeholder='Поиск'
+              allowClear
+              onChange={(e) => {
+                setFiltered(
+                  checkBox.filter((i) =>
+                    i.toLowerCase().includes(e.target.value.toLowerCase())
+                  )
+                )
+              }}
+            />
+          )}
           <Checkbox.Group
             value={state}
             className='Ant_Drop_Block_Style_Checkbox checkbox_overflow'
-            options={checkBox}
+            options={filtered ? filtered : checkBox}
             onChange={(val) => setState(val)}
           />
           {state.length > 0 && (
@@ -80,3 +109,21 @@ const CheckBoxMenu = ({ titleBtn, checkBox, type, state, setState }) => {
 }
 
 export default CheckBoxMenu
+
+const modifyParams = (params) => {
+  let pars = params
+  if (params.genders.length > 0) {
+    pars = {
+      ...pars,
+      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
+    }
+  }
+  if (params.ages.length > 0) {
+    pars = {
+      ...pars,
+      ages: params.ages.map((a) => (a === '70 +' ? '70-120' : a)),
+    }
+  }
+
+  return pars
+}
