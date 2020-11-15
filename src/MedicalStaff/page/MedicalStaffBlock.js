@@ -64,18 +64,36 @@ const MedicalStaffBlock = () => {
               <Spinner />
             ) : (
               <>
-                <FBMED data={filtered_data.length > 0 ? filtered_data : data} />
+                <FBMED
+                  data={
+                    filtered_data.length > 0
+                      ? filtered_data['functional-blocks']
+                      : data['functional-blocks']
+                  }
+                />
                 <POSITIONMED
-                  data={filtered_data.length > 0 ? filtered_data : data}
+                  data={
+                    filtered_data.length > 0 ? filtered_data.posts : data.posts
+                  }
                 />
                 <TYPEMED
-                  data={filtered_data.length > 0 ? filtered_data : data}
+                  data={
+                    filtered_data.length > 0 ? filtered_data.types : data.types
+                  }
                 />
                 <FORMMED
-                  data={filtered_data.length > 0 ? filtered_data : data}
+                  data={
+                    filtered_data.length > 0
+                      ? filtered_data['medical-care-forms']
+                      : data['medical-care-forms']
+                  }
                 />
                 <GENDERMED
-                  data={filtered_data.length > 0 ? filtered_data : data}
+                  data={
+                    filtered_data.length > 0
+                      ? filtered_data['ages-genders']
+                      : data['ages-genders']
+                  }
                 />
               </>
             )}

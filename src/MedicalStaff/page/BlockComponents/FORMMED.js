@@ -10,9 +10,6 @@ export const FORMMED = ({ data }) => {
       <div className='MedicalStaff_body'>
         <div className='MedicalStaff_body_graph Doughnut_graph_one'>
           <span>Форма оказываемой мед. помощи</span>
-
-          {/*   <div className='MedicalStaff_body_graph_item'><MedicalStaffChart typeChart='HorizontalBar' dataSet={firstChartData}
-                                                                                           option={firstChartOption}/></div>*/}
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='Doughnut'

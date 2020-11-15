@@ -1,64 +1,21 @@
 export const setTypeMed = (data) => {
-  let counter = {
-    'Врачебный персонал': 0,
-    'Средний медицинский персонал': 0,
-    'Младший медицинский персонал': 0,
-    'Прочий персонал': 0,
-  }
-
-  data.forEach((i) => {
-    let key = i['staff-type']
-    if (key) {
-      counter = {
-        ...counter,
-        [key]: ++counter[key],
-      }
-    }
-  })
-
   return {
-    labels: Object.keys(counter),
+    labels: Object.keys(data),
     datasets: [
       {
         label: true,
         borderWidth: 0.5,
         borderColor: 'rgba(255, 255, 255, 0.5)',
         backgroundColor: ['#5a9173', '#ce4257', '#255f85', '#ec9a29'],
-        data: Object.values(counter),
+        data: Object.values(data),
       },
     ],
   }
 }
 
 export const setFormMed = (data) => {
-  let helps = {
-    'Амбулаторная помощь': 0,
-    'Стационарная помощь': 0,
-    прочее: 0,
-    'не указано': 0,
-  }
-
-  data.forEach((i) => {
-    let key = i['medical-care-form']
-
-    if (key === null) {
-      helps = { ...helps, 'не указано': ++helps['не указано'] }
-    }
-    if (key === 'Амбулаторно-поликлиническая помощь') {
-      helps = {
-        ...helps,
-        'Амбулаторная помощь': ++helps['Амбулаторная помощь'],
-      }
-    }
-    if (key === 'Стационарная помощь') {
-      helps = { ...helps, [key]: ++helps[key] }
-    } else {
-      helps = { ...helps, прочее: ++helps['прочее'] }
-    }
-  })
-
   return {
-    labels: Object.keys(helps),
+    labels: Object.keys(data),
     datasets: [
       {
         label: true,
@@ -66,51 +23,26 @@ export const setFormMed = (data) => {
 
         borderColor: 'rgba(255, 255, 255, 0.5)',
         backgroundColor: ['#5a9173', '#ce4257', '#255f85', '#ec9a29'],
-        data: Object.values(helps),
+        data: Object.values(data),
       },
     ],
   }
 }
 
-export const setHorizontalBarDataSet = (data, key) => {
-  let ob = {}
-
-  data.forEach((i) => {
-    let name = i[key].toLowerCase()
-
-    if (ob[name] === undefined) {
-      ob = { ...ob, [name]: 0 }
-    } else {
-      ob = { ...ob, [name]: ++ob[name] }
-    }
-  })
-
-  // Object.keys(ob).forEach((key) => {
-  //   if (ob[key] === 0) {
-  //     delete ob[key]
-  //   }
-  // })
-
+export const setHorizontalBarDataSet = (data) => {
   return {
-    labels: Object.keys(ob),
+    labels: Object.keys(data),
     datasets: [
       {
         /* label: "Исполнение",*/
         backgroundColor: '#ff8c0080',
-        data: Object.values(ob),
+        data: Object.values(data),
       },
     ],
   }
 }
 
-export const setHorizontalBarOptions = (data, key) => {
-  let ob = {}
-  data.forEach((i) => {
-    ob = {
-      ...ob,
-      [i[key]]: i[key],
-    }
-  })
+export const setHorizontalBarOptions = (data) => {
   return {
     legend: {
       display: false,
@@ -137,7 +69,7 @@ export const setHorizontalBarOptions = (data, key) => {
     plugins: {
       datalabels: {
         formatter: function (value, ctx2) {
-          return Object.values(ob)[ctx2.dataIndex] + ' - ' + value + ' шт.'
+          return Object.keys(data)[ctx2.dataIndex] + ' - ' + value + ' шт.'
         },
         align: 'end',
         anchor: 'start',
@@ -151,17 +83,12 @@ export const setHorizontalBarOptions = (data, key) => {
 }
 
 export const setGenderMed = (data) => {
-  let male = [0, 0, 0, 0, 0, 0]
-  let female = [0, 0, 0, 0, 0, 0]
-
-  data.forEach((i) => {
-    if (i.gender === 'male') {
-      countAge(male, i.age)
-    } else {
-      countAge(female, i.age)
-    }
-  })
-
+  let male = Object.values(data)
+    .map((i) => i.male)
+    .reverse()
+  let female = Object.values(data)
+    .map((i) => i.female)
+    .reverse()
   return {
     labels: ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +'],
     datasets: [
@@ -180,21 +107,5 @@ export const setGenderMed = (data) => {
         data: male,
       },
     ],
-  }
-}
-
-const countAge = (arr, age) => {
-  if (age <= 29) {
-    arr[0] = ++arr[0]
-  } else if (age >= 30 && age <= 39) {
-    arr[1] = ++arr[1]
-  } else if (age >= 40 && age <= 49) {
-    arr[2] = ++arr[2]
-  } else if (age >= 50 && age <= 59) {
-    arr[3] = ++arr[3]
-  } else if (age >= 60 && age <= 69) {
-    arr[4] = ++arr[4]
-  } else if (age >= 70) {
-    arr[5] = ++arr[5]
   }
 }

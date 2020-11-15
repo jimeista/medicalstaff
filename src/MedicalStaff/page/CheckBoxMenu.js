@@ -12,8 +12,8 @@ const CheckBoxMenu = ({
   checkBox,
   type,
   search,
-  state,
-  setState,
+  value,
+  setValue,
   params,
 }) => {
   const [visible, setVisible] = useState(false)
@@ -28,7 +28,7 @@ const CheckBoxMenu = ({
   }
 
   const handleReset = () => {
-    setState([])
+    setValue([])
     params[type] = []
     let pars = modifyParams(params)
 
@@ -65,12 +65,12 @@ const CheckBoxMenu = ({
             />
           )}
           <Checkbox.Group
-            value={state}
+            value={value}
             className='Ant_Drop_Block_Style_Checkbox checkbox_overflow'
             options={filtered ? filtered : checkBox}
-            onChange={(val) => setState(val)}
+            onChange={(val) => setValue(val)}
           />
-          {state.length > 0 && (
+          {value.length > 0 && (
             <div
               style={{
                 display: 'flex',

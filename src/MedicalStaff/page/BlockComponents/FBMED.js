@@ -16,11 +16,8 @@ export const FBMED = ({ data }) => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='HorizontalBar'
-              dataSet={setHorizontalBarDataSet(
-                data,
-                'functional-unit-grouping'
-              )}
-              option={setHorizontalBarOptions(data, 'functional-unit-grouping')}
+              dataSet={setHorizontalBarDataSet(data)}
+              option={setHorizontalBarOptions(data)}
             />
           </div>
         </div>

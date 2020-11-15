@@ -4,7 +4,7 @@ import axios from 'axios'
 export const getMedicalStaff = createAsyncThunk(
   'medicalstaff/getMedicalStaff',
   async (params) => {
-    let url = '/sc-healthcare/api/staff'
+    let url = '/sc-healthcare/api/staff/accumulative-counts'
     const res = await axios.post(url, params)
 
     // console.log(res)
@@ -15,11 +15,19 @@ export const getMedicalStaff = createAsyncThunk(
 export const getFilteredMedicalStaff = createAsyncThunk(
   'medicalstaff/getFilteredMedicalStaff',
   async (params) => {
-    let url = '/sc-healthcare/api/staff'
+    let url = '/sc-healthcare/api/staff/accumulative-counts'
     const res = await axios.post(url, params)
 
-    console.log(res)
+    // console.log(res)
     return res.data
+  }
+)
+
+export const getOrganisations = createAsyncThunk(
+  'healthmodule/getOrganisations',
+  async () => {
+    let url = '/sc-healthcare/api/organisations?entity=staff'
+    return await axios.get(url).then((res) => res.data)
   }
 )
 
@@ -30,6 +38,7 @@ const medicalstaffSlice = createSlice({
     filtered_data: [],
     status: 'idle',
     error: null,
+    organisations_: [],
   },
   reducers: {
     setFilteredData: (state, action) => {
@@ -65,6 +74,9 @@ const medicalstaffSlice = createSlice({
     [getFilteredMedicalStaff.failed]: (state, action) => {
       state.status = 'failed'
       state.error = action.payload
+    },
+    [getOrganisations.fulfilled]: (state, action) => {
+      state.organisations_ = action.payload
     },
   },
 })

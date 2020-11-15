@@ -15,8 +15,8 @@ export const POSITIONMED = ({ data }) => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='HorizontalBar'
-              dataSet={setHorizontalBarDataSet(data, 'post-briefly')}
-              option={setHorizontalBarOptions(data, 'post-briefly')}
+              dataSet={setHorizontalBarDataSet(data)}
+              option={setHorizontalBarOptions(data)}
             />
           </div>
         </div>

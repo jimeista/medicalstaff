@@ -1,19 +1,26 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'antd'
 
-import { resetFilteredMedicalStaff } from '../../features/medicalstaff/medicalstaffSlice'
+import {
+  resetFilteredMedicalStaff,
+  getOrganisations,
+} from '../../features/medicalstaff/medicalstaffSlice'
 import CheckBoxMenu from '../CheckBoxMenu'
 
 export const FILTERS = () => {
-  const { data, status } = useSelector((state) => state.medicalstaff)
+  const { organisations_ } = useSelector((state) => state.medicalstaff)
   const [organisations, setOrganisations] = useState([])
   let [ages, setAges] = useState([])
   let [genders, setGender] = useState([])
 
   const dispatch = useDispatch()
 
-  const handleReset = (params) => {
+  useEffect(() => {
+    dispatch(getOrganisations())
+  }, [dispatch])
+
+  const handleReset = () => {
     setOrganisations([])
     setAges([])
     setGender([])
@@ -21,21 +28,20 @@ export const FILTERS = () => {
   }
 
   const organisation_checkbox = useMemo(() => {
-    let checkbox = status === 'success' ? setCheckbox(data) : []
     return (
       <div className='MedicalStaff_filter_item'>
         <CheckBoxMenu
           titleBtn={'Мед. организация'}
-          checkBox={checkbox}
+          checkBox={organisations_}
           search={true}
           type={'medical-organisations'}
-          state={organisations}
-          setState={setOrganisations}
+          value={organisations}
+          setValue={setOrganisations}
           params={{ ages, genders, 'medical-organisations': organisations }}
         />
       </div>
     )
-  }, [data, status, organisations, ages, genders])
+  }, [organisations, ages, genders, organisations_])
 
   const ages_checkbox = useMemo(() => {
     return (
@@ -44,8 +50,8 @@ export const FILTERS = () => {
           titleBtn={'Возраст'}
           checkBox={['20-29', '30-39', '40-49', '50-59', '60-69', '70 +']}
           type={'ages'}
-          state={ages}
-          setState={setAges}
+          value={ages}
+          setValue={setAges}
           params={{ ages, genders, 'medical-organisations': organisations }}
         />
       </div>
@@ -59,8 +65,8 @@ export const FILTERS = () => {
           titleBtn={'Пол'}
           checkBox={['Мужчины', 'Женщины']}
           type={'genders'}
-          state={genders}
-          setState={setGender}
+          value={genders}
+          setValue={setGender}
           params={{ ages, genders, 'medical-organisations': organisations }}
         />
       </div>
@@ -77,17 +83,4 @@ export const FILTERS = () => {
       </div>
     </div>
   )
-}
-
-const setCheckbox = (data) => {
-  let ob = {}
-
-  data.forEach((i) => {
-    ob = { ...ob, [i['medical-organisation']]: i['medical-organisation'] }
-  })
-
-  // let arr = Object.values(ob).splice(0, 9)
-  let arr = Object.values(ob)
-
-  return arr
 }
