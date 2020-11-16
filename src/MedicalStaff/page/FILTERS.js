@@ -1,12 +1,12 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useMemo, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button } from 'antd'
 
-import {
-  getOrganisations,
-  resetFilteredMedicalStaff,
-} from '../features/medicalstaff/medicalstaffSlice'
-import CheckBoxMenu from './CheckBoxMenu'
+import { resetFilteredMedicalStaff } from '../features/medicalstaff/medicalstaffSlice'
+// import CheckBoxMenu from './CheckBoxMenu'
+import { AgeFilter } from './Filters/AgeFilter'
+import { GenderFilter } from './Filters/GenderFilter'
+import { OrganisationFilter } from './Filters/OrganisationFilter'
 
 export const FILTERS = () => {
   const [organisations, setOrganisations] = useState([])
@@ -14,44 +14,30 @@ export const FILTERS = () => {
   let [genders, setGender] = useState([])
 
   const dispatch = useDispatch()
-  const { organisations_, status } = useSelector((state) => state.medicalstaff)
-
-  console.log('loading filters block', organisations_)
-
-  useEffect(() => {
-    dispatch(getOrganisations({}))
-  }, [dispatch])
 
   const handleReset = useCallback(() => {
     setOrganisations([])
     setAges([])
     setGender([])
     dispatch(resetFilteredMedicalStaff())
-  }, [dispatch])
+  }, [])
 
   const organisation_checkbox = useMemo(() => {
     return (
       <div className='MedicalStaff_filter_item'>
-        <CheckBoxMenu
-          titleBtn={'Мед. организация'}
-          checkBox={organisations_}
-          search={true}
-          type={'medical-organisations'}
+        <OrganisationFilter
           value={organisations}
           setValue={setOrganisations}
           params={{ ages, genders }}
         />
       </div>
     )
-  }, [organisations, ages, genders, organisations_])
+  }, [organisations, ages, genders])
 
   const ages_checkbox = useMemo(() => {
     return (
       <div className='MedicalStaff_filter_item'>
-        <CheckBoxMenu
-          titleBtn={'Возраст'}
-          checkBox={['20-29', '30-39', '40-49', '50-59', '60-69', '70 +']}
-          type={'ages'}
+        <AgeFilter
           value={ages}
           setValue={setAges}
           params={{ genders, 'medical-organisations': organisations }}
@@ -63,10 +49,7 @@ export const FILTERS = () => {
   const genders_checkbox = useMemo(() => {
     return (
       <div className='MedicalStaff_filter_item'>
-        <CheckBoxMenu
-          titleBtn={'Пол'}
-          checkBox={['Мужчины', 'Женщины']}
-          type={'genders'}
+        <GenderFilter
           value={genders}
           setValue={setGender}
           params={{ ages, 'medical-organisations': organisations }}
@@ -84,15 +67,13 @@ export const FILTERS = () => {
   }
 
   return (
-    status === 'success' && (
-      <div className='MedicalStaff_filter'>
-        <div className='MedicalStaff_filter_filter'>
-          {organisation_checkbox}
-          {ages_checkbox}
-          {genders_checkbox}
-          {resetBtn()}
-        </div>
+    <div className='MedicalStaff_filter'>
+      <div className='MedicalStaff_filter_filter'>
+        {organisation_checkbox}
+        {ages_checkbox}
+        {genders_checkbox}
+        {resetBtn()}
       </div>
-    )
+    </div>
   )
 }

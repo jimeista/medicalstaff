@@ -19,13 +19,12 @@ export const BlockComponent = () => {
     (state) => state.medicalstaff
   )
 
-  console.log(filtered_data)
   useEffect(() => {
     dispatch(getMedicalStaff({}))
     return () => {
       dispatch(resetMedicalStaff())
     }
-  }, [dispatch])
+  }, [])
 
   return (
     <div className={`MedicalStaff_body_wrapper `}>
@@ -35,27 +34,25 @@ export const BlockComponent = () => {
         <>
           <FBMED
             data={
-              filtered_data.length > 0
+              filtered_data
                 ? filtered_data['functional-blocks']
                 : data['functional-blocks']
             }
           />
           <POSITIONMED
-            data={filtered_data.length > 0 ? filtered_data.posts : data.posts}
+            data={filtered_data ? filtered_data.posts : data.posts}
           />
-          <TYPEMED
-            data={filtered_data.length > 0 ? filtered_data.types : data.types}
-          />
+          <TYPEMED data={filtered_data ? filtered_data.types : data.types} />
           <FORMMED
             data={
-              filtered_data.length > 0
+              filtered_data
                 ? filtered_data['medical-care-forms']
                 : data['medical-care-forms']
             }
           />
           <GENDERMED
             data={
-              filtered_data.length > 0
+              filtered_data
                 ? filtered_data['ages-genders']
                 : data['ages-genders']
             }

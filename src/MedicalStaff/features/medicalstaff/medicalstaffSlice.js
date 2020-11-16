@@ -35,7 +35,6 @@ const medicalstaffSlice = createSlice({
   name: 'medicalstaff',
   initialState: {
     data: [],
-    filtered_data: [],
     status: 'idle',
     error: null,
     organisations_: [],
@@ -49,7 +48,7 @@ const medicalstaffSlice = createSlice({
       state.status = 'idle'
     },
     resetFilteredMedicalStaff: (state) => {
-      state.filtered_data = []
+      state.filtered_data = undefined
     },
   },
   extraReducers: {
