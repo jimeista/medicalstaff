@@ -7,6 +7,10 @@ import {
 } from '../../utils/chart'
 
 export const POSITIONMED = ({ data }) => {
+  let arr = Object.keys(data)
+    .map((key) => ({ label: key, value: data[key] }))
+    .sort((a, b) => b.value - a.value)
+
   return (
     <div className='MedicalStaff_body_wrap first_block'>
       <div className='MedicalStaff_body'>
@@ -15,8 +19,8 @@ export const POSITIONMED = ({ data }) => {
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='HorizontalBar'
-              dataSet={setHorizontalBarDataSet(data)}
-              option={setHorizontalBarOptions(data)}
+              dataSet={setHorizontalBarDataSet(arr)}
+              option={setHorizontalBarOptions(arr)}
             />
           </div>
         </div>

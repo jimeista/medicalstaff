@@ -1,3 +1,5 @@
+import { keys } from '@material-ui/core/styles/createBreakpoints'
+
 export const setTypeMed = (data) => {
   return {
     labels: Object.keys(data),
@@ -31,12 +33,12 @@ export const setFormMed = (data) => {
 
 export const setHorizontalBarDataSet = (data) => {
   return {
-    labels: Object.keys(data),
+    labels: data.map((i) => i.label),
     datasets: [
       {
         /* label: "Исполнение",*/
         backgroundColor: '#ff8c0080',
-        data: Object.values(data),
+        data: data.map((i) => i.value),
       },
     ],
   }
@@ -69,7 +71,9 @@ export const setHorizontalBarOptions = (data) => {
     plugins: {
       datalabels: {
         formatter: function (value, ctx2) {
-          return Object.keys(data)[ctx2.dataIndex] + ' - ' + value + ' шт.'
+          return (
+            data.map((i) => i.label)[ctx2.dataIndex] + ' - ' + value + ' шт.'
+          )
         },
         align: 'end',
         anchor: 'start',
@@ -83,14 +87,21 @@ export const setHorizontalBarOptions = (data) => {
 }
 
 export const setGenderMed = (data) => {
-  let male = Object.values(data)
-    .map((i) => i.male)
-    .reverse()
-  let female = Object.values(data)
-    .map((i) => i.female)
-    .reverse()
+  let labels = []
+  let female = []
+  let male = []
+
+  labels = Object.keys(data).sort(
+    (a, b) => +a.substring(0, 2) - +b.substring(0, 2)
+  )
+
+  labels.forEach((label) => {
+    female = [...female, data[label].female]
+    male = [...male, data[label].male]
+  })
+
   return {
-    labels: ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +'],
+    labels: labels.map((l) => (l === '70-120' ? '70+' : l)),
     datasets: [
       {
         label: 'Женщины',

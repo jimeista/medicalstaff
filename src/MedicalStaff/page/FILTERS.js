@@ -1,31 +1,33 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'antd'
 
 import {
-  resetFilteredMedicalStaff,
   getOrganisations,
-} from '../../features/medicalstaff/medicalstaffSlice'
-import CheckBoxMenu from '../CheckBoxMenu'
+  resetFilteredMedicalStaff,
+} from '../features/medicalstaff/medicalstaffSlice'
+import CheckBoxMenu from './CheckBoxMenu'
 
 export const FILTERS = () => {
-  const { organisations_ } = useSelector((state) => state.medicalstaff)
   const [organisations, setOrganisations] = useState([])
   let [ages, setAges] = useState([])
   let [genders, setGender] = useState([])
 
   const dispatch = useDispatch()
+  const { organisations_, status } = useSelector((state) => state.medicalstaff)
+
+  console.log('loading filters block', organisations_)
 
   useEffect(() => {
-    dispatch(getOrganisations())
+    dispatch(getOrganisations({}))
   }, [dispatch])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setOrganisations([])
     setAges([])
     setGender([])
     dispatch(resetFilteredMedicalStaff())
-  }
+  }, [dispatch])
 
   const organisation_checkbox = useMemo(() => {
     return (
@@ -37,7 +39,7 @@ export const FILTERS = () => {
           type={'medical-organisations'}
           value={organisations}
           setValue={setOrganisations}
-          params={{ ages, genders, 'medical-organisations': organisations }}
+          params={{ ages, genders }}
         />
       </div>
     )
@@ -52,7 +54,7 @@ export const FILTERS = () => {
           type={'ages'}
           value={ages}
           setValue={setAges}
-          params={{ ages, genders, 'medical-organisations': organisations }}
+          params={{ genders, 'medical-organisations': organisations }}
         />
       </div>
     )
@@ -67,20 +69,30 @@ export const FILTERS = () => {
           type={'genders'}
           value={genders}
           setValue={setGender}
-          params={{ ages, genders, 'medical-organisations': organisations }}
+          params={{ ages, 'medical-organisations': organisations }}
         />
       </div>
     )
   }, [genders, ages, organisations])
 
+  const resetBtn = () => {
+    if (ages.length > 0 || genders.length > 0 || organisations.length > 0) {
+      return <Button onClick={handleReset}> reset </Button>
+    }
+
+    return null
+  }
+
   return (
-    <div className='MedicalStaff_filter'>
-      <div className='MedicalStaff_filter_filter'>
-        {organisation_checkbox}
-        {ages_checkbox}
-        {genders_checkbox}
-        <Button onClick={handleReset}> reset </Button>
+    status === 'success' && (
+      <div className='MedicalStaff_filter'>
+        <div className='MedicalStaff_filter_filter'>
+          {organisation_checkbox}
+          {ages_checkbox}
+          {genders_checkbox}
+          {resetBtn()}
+        </div>
       </div>
-    </div>
+    )
   )
 }
