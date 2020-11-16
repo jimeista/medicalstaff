@@ -1,4 +1,3 @@
-import { compactInteger } from './DatePicker/FormaterNum'
 /*
 export const CrimeLineChart_Line_option = {
   plugins: {

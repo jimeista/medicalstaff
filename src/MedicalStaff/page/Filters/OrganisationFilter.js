@@ -1,38 +1,42 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { Menu, Dropdown, Button, Checkbox, Input } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getFilteredMedicalStaff,
-  getOrganisations,
   resetFilteredMedicalStaff,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
 export const OrganisationFilter = ({ value, setValue, params }) => {
-  const [visible, setVisible] = useState(false)
-  const [filtered, setFiltered] = useState()
-  const [options, setOptions] = useState([])
-
-  const inptRef = useRef(null)
-
   const dispatch = useDispatch()
   const { organisations_ } = useSelector((state) => state.medicalstaff)
 
-  useEffect(() => {
-    dispatch(getOrganisations({}))
-  }, [])
+  const inptRef = useRef(null)
+  const [visible, setVisible] = useState(false)
+  const [filtered, setFiltered] = useState()
+  const [options, setOptions] = useState(
+    organisations_.map((i) => ({
+      label: i,
+      value: i,
+      checked: false,
+      disabled: false,
+    }))
+  )
 
-  useMemo(() => {
-    organisations_ &&
-      setOptions(
-        organisations_.map((i) => ({
-          label: i,
-          value: i,
-          checked: false,
-          disabled: false,
-        }))
-      )
+  useEffect(() => {
+    setOptions(
+      organisations_.map((i) => ({
+        label: i,
+        value: i,
+        checked: false,
+        disabled: false,
+      }))
+    )
   }, [organisations_])
+
+  //   console.log('loading organisation filter', organisations_)
+  console.log(options)
 
   const handleSubmit = () => {
     let checked_values = options.filter((o) => o.checked).map((i) => i.value)
@@ -77,11 +81,11 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
   }
 
   const handleChange = (val) => {
-    setOptions((state) =>
-      state.map((op) =>
-        val.includes(op.value) ? { ...op, checked: !op.checked } : op
-      )
-    )
+    // setOptions((state) =>
+    //   state.map((op) =>
+    //     val.includes(op.value) ? { ...op, checked: !op.checked } : op
+    //   )
+    // )
   }
 
   const handleSearch = (e) => {
@@ -92,46 +96,44 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
     )
   }
 
-  const menu = () => {
-    return (
-      <Menu className='Ant_Drop_Block_Style'>
+  const menu = (
+    <Menu className='Ant_Drop_Block_Style'>
+      <div>
         <div>
-          <div>
-            <Input
-              placeholder='Поиск'
-              allowClear
-              onChange={handleSearch}
-              ref={inptRef}
-            />
-          </div>
-          <Checkbox.Group
-            className='Ant_Drop_Block_Style_Checkbox checkbox_overflow'
-            options={filtered ? filtered : options}
-            onChange={handleChange}
+          <Input
+            placeholder='Поиск'
+            allowClear
+            onChange={handleSearch}
+            ref={inptRef}
           />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: '5px',
-            }}
-          >
-            {value.length > 0 && (
-              <Button className='ant_drop_btn' onClick={handleReset}>
-                Сбросить
-              </Button>
-            )}
-            {options.filter((o) => o.checked && o.value).length > 0 && (
-              <Button className='ant_drop_btn' onClick={handleSubmit}>
-                Применить
-              </Button>
-            )}
-          </div>
         </div>
-      </Menu>
-    )
-  }
+        <Checkbox.Group
+          className='Ant_Drop_Block_Style_Checkbox checkbox_overflow'
+          options={filtered ? filtered : options}
+          onChange={handleChange}
+        />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            padding: '5px',
+          }}
+        >
+          {value.length > 0 && (
+            <Button className='ant_drop_btn' onClick={handleReset}>
+              Сбросить
+            </Button>
+          )}
+          {options.filter((o) => o.checked && o.value).length > 0 && (
+            <Button className='ant_drop_btn' onClick={handleSubmit}>
+              Применить
+            </Button>
+          )}
+        </div>
+      </div>
+    </Menu>
+  )
 
   return (
     <Dropdown

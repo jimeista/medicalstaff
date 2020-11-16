@@ -11,8 +11,6 @@ export const TYPEMED = ({ data }) => {
         <div className='MedicalStaff_body_graph Doughnut_graph_one'>
           <span>Вид мед. персонала</span>
 
-          {/*   <div className='MedicalStaff_body_graph_item'><MedicalStaffChart typeChart='HorizontalBar' dataSet={firstChartData}
-                                                                                       option={firstChartOption}/></div>*/}
           <div className='MedicalStaff_body_graph_item '>
             <MedicalStaffChart
               typeChart='Doughnut'
