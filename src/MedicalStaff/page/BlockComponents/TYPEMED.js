@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getTypes } from '../../features/medicalstaff/medicalstaffSlice'
+
+import { Spinner } from '../Spinner'
 
 import { MedicalStaffChart } from '../MedicalStaffChart'
 import { personalOption1 } from '../ChartOption'
 import { setTypeMed } from '../../utils/chart'
 
-export const TYPEMED = ({ data }) => {
+export const TYPEMED = () => {
+  const dispatch = useDispatch()
+  const { types } = useSelector((state) => state.medicalstaff)
+
+  useEffect(() => {
+    dispatch(getTypes({}))
+  }, [])
+
+  const { status, data, filtered } = types
+
   return (
     <div className='MedicalStaff_body_wrap second_block'>
       <div className='MedicalStaff_body'>
@@ -12,11 +26,15 @@ export const TYPEMED = ({ data }) => {
           <span>Вид мед. персонала</span>
 
           <div className='MedicalStaff_body_graph_item '>
-            <MedicalStaffChart
-              typeChart='Doughnut'
-              dataSet={setTypeMed(data)}
-              option={personalOption1}
-            />
+            {status === 'success' ? (
+              <MedicalStaffChart
+                typeChart='Doughnut'
+                dataSet={setTypeMed(filtered ? filtered : data)}
+                option={personalOption1}
+              />
+            ) : (
+              <Spinner />
+            )}
           </div>
         </div>
       </div>

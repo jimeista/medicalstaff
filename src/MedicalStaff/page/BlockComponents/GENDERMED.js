@@ -1,12 +1,23 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getAgesGenders } from '../../features/medicalstaff/medicalstaffSlice'
+
+import { Spinner } from '../Spinner'
 
 import { MedicalStaffChart } from '../MedicalStaffChart'
 import { TabTwoPOption } from '../ChartOption'
 import { setGenderMed } from '../../utils/chart'
 
-export const GENDERMED = ({ data }) => {
-  const { gender } = useSelector((state) => state.medicalstaff)
+export const GENDERMED = () => {
+  const dispatch = useDispatch()
+  const { ages_genders, gender } = useSelector((state) => state.medicalstaff)
+
+  useEffect(() => {
+    dispatch(getAgesGenders({}))
+  }, [])
+
+  const { status, data, filtered } = ages_genders
 
   return (
     <div className='MedicalStaff_body_wrap second_block'>
@@ -14,11 +25,15 @@ export const GENDERMED = ({ data }) => {
         <div className='MedicalStaff_body_graph HorizontalBar_graph_two'>
           <span>Кол-во медецинского персонала по возрасту и полу</span>
           <div className='MedicalStaff_body_graph_item '>
-            <MedicalStaffChart
-              typeChart='Bar'
-              dataSet={setGenderMed(data, gender)}
-              option={TabTwoPOption}
-            />
+            {status === 'success' ? (
+              <MedicalStaffChart
+                typeChart='Bar'
+                dataSet={setGenderMed(filtered ? filtered : data, gender)}
+                option={TabTwoPOption}
+              />
+            ) : (
+              <Spinner />
+            )}
           </div>
         </div>
       </div>

@@ -1,21 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getMedicalCareForms } from '../../features/medicalstaff/medicalstaffSlice'
+
+import { Spinner } from '../Spinner'
 import { MedicalStaffChart } from '../MedicalStaffChart'
 import { personalOption2 } from '../ChartOption'
 import { setFormMed } from '../../utils/chart'
 
-export const FORMMED = ({ data }) => {
+export const FORMMED = () => {
+  const dispatch = useDispatch()
+  const { medical_care_forms } = useSelector((state) => state.medicalstaff)
+
+  useEffect(() => {
+    dispatch(getMedicalCareForms({}))
+  }, [])
+
+  const { status, data, filtered } = medical_care_forms
   return (
     <div className='MedicalStaff_body_wrap second_block'>
       <div className='MedicalStaff_body'>
         <div className='MedicalStaff_body_graph Doughnut_graph_one'>
           <span>Форма оказываемой мед. помощи</span>
           <div className='MedicalStaff_body_graph_item '>
-            <MedicalStaffChart
-              typeChart='Doughnut'
-              dataSet={setFormMed(data)}
-              option={personalOption2}
-            />
+            {status === 'success' ? (
+              <MedicalStaffChart
+                typeChart='Doughnut'
+                dataSet={setFormMed(filtered ? filtered : data)}
+                option={personalOption2}
+              />
+            ) : (
+              <Spinner />
+            )}
           </div>
         </div>
       </div>

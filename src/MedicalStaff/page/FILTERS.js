@@ -6,7 +6,7 @@ import {
   getOrganisations,
   resetFilteredMedicalStaff,
 } from '../features/medicalstaff/medicalstaffSlice'
-// import CheckBoxMenu from './CheckBoxMenu'
+
 import { AgeFilter } from './Filters/AgeFilter'
 import { GenderFilter } from './Filters/GenderFilter'
 import { OrganisationFilter } from './Filters/OrganisationFilter'
@@ -40,7 +40,6 @@ export const FILTERS = () => {
     }
   }, [organisations_])
 
-  // console.log('loading filters')
   const dispatch = useDispatch()
 
   useEffect(() => {
