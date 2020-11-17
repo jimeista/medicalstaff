@@ -38,8 +38,12 @@ const medicalstaffSlice = createSlice({
     status: 'idle',
     error: null,
     organisations_: [],
+    gender: { Мужчины: 'Мужчины', Женщины: 'Женщины' },
   },
   reducers: {
+    setGender: (state, action) => {
+      state.gender = action.payload
+    },
     setFilteredData: (state, action) => {
       state.filtered_data = action.payload
     },
@@ -48,6 +52,7 @@ const medicalstaffSlice = createSlice({
       state.status = 'idle'
     },
     resetFilteredMedicalStaff: (state) => {
+      state.gender = { Мужчины: 'Мужчины', Женщины: 'Женщины' }
       state.filtered_data = undefined
     },
   },
@@ -81,8 +86,9 @@ const medicalstaffSlice = createSlice({
 })
 
 export const {
-  resetMedicalStaff,
   setFilteredData,
+  setGender,
+  resetMedicalStaff,
   resetFilteredMedicalStaff,
 } = medicalstaffSlice.actions
 

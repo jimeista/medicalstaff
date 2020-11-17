@@ -8,49 +8,47 @@ import {
   resetFilteredMedicalStaff,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-export const OrganisationFilter = ({ value, setValue, params }) => {
+export const OrganisationFilter = ({
+  value,
+  setValue,
+  options,
+  setOptions,
+  params,
+  inptRef,
+}) => {
   const dispatch = useDispatch()
-  const { organisations_ } = useSelector((state) => state.medicalstaff)
 
-  const inptRef = useRef(null)
   const [visible, setVisible] = useState(false)
   const [filtered, setFiltered] = useState()
-  const [options, setOptions] = useState(
-    organisations_.map((i) => ({
-      label: i,
-      value: i,
-      checked: false,
-      disabled: false,
-    }))
-  )
-
-  useEffect(() => {
-    setOptions(
-      organisations_.map((i) => ({
-        label: i,
-        value: i,
-        checked: false,
-        disabled: false,
-      }))
-    )
-  }, [organisations_])
 
   //   console.log('loading organisation filter', organisations_)
-  console.log(options)
 
-  const handleSubmit = () => {
-    let checked_values = options.filter((o) => o.checked).map((i) => i.value)
+  const onSubmit = () => {
+    let checked_values = options.filter((o) => o.checked).map((op) => op.value)
 
     dispatch(
       getFilteredMedicalStaff(
-        modifyParams({ ...params, 'medical-organisations': checked_values })
+        modifyParams({
+          ...params,
+          'medical-organisations': checked_values,
+          genders: [],
+        })
       )
     )
     setValue(checked_values)
     setVisible(false)
   }
 
-  const handleReset = () => {
+  const onReset = () => {
+    setOptions((options) =>
+      options.map((option) => ({ ...option, checked: false }))
+    )
+
+    if (inptRef.current && inptRef.current.state) {
+      inptRef.current.state.value = ''
+      setFiltered()
+    }
+
     setValue([])
     params['medical-organisations'] = []
     let pars = modifyParams(params)
@@ -62,15 +60,6 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
       }
     })
 
-    setOptions((state) =>
-      state.map((op) => ({ ...op, disabled: false, checked: false }))
-    )
-
-    if (inptRef.current && inptRef.current.state) {
-      inptRef.current.state.value = ''
-      setFiltered()
-    }
-
     if (count > 0) {
       dispatch(getFilteredMedicalStaff(pars))
     } else {
@@ -80,15 +69,15 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
     setVisible(false)
   }
 
-  const handleChange = (val) => {
-    // setOptions((state) =>
-    //   state.map((op) =>
-    //     val.includes(op.value) ? { ...op, checked: !op.checked } : op
-    //   )
-    // )
+  const onChange = (_, value) => {
+    setOptions((options) =>
+      options.map((o) =>
+        o.value === value ? { ...o, checked: !o.checked } : o
+      )
+    )
   }
 
-  const handleSearch = (e) => {
+  const onSearch = (e) => {
     setFiltered(
       options.filter((i) =>
         i.value.toLowerCase().includes(e.target.value.toLowerCase())
@@ -96,48 +85,69 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
     )
   }
 
-  const menu = (
-    <Menu className='Ant_Drop_Block_Style'>
-      <div>
+  const menu = () => {
+    const data = filtered ? filtered : options
+
+    return (
+      <Menu className='Ant_Drop_Block_Style'>
         <div>
-          <Input
-            placeholder='Поиск'
-            allowClear
-            onChange={handleSearch}
-            ref={inptRef}
-          />
+          <div>
+            <Input
+              placeholder='Поиск'
+              allowClear
+              onChange={onSearch}
+              ref={inptRef}
+            />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'scroll',
+              maxHeight: 300,
+              padding: 3,
+            }}
+          >
+            {data.map((option) => (
+              <Checkbox
+                key={option.value}
+                checked={option.checked}
+                onChange={(_) => onChange(_, option.value)}
+              >
+                {option.value}
+              </Checkbox>
+            ))}
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              padding: '5px',
+            }}
+          >
+            <>
+              {value.length > 0 && (
+                <Button className='ant_drop_btn' onClick={onReset}>
+                  Сбросить
+                </Button>
+              )}
+
+              {options.filter((o) => o.checked).length > 0 && (
+                <Button className='ant_drop_btn' onClick={onSubmit}>
+                  Применить
+                </Button>
+              )}
+            </>
+          </div>
         </div>
-        <Checkbox.Group
-          className='Ant_Drop_Block_Style_Checkbox checkbox_overflow'
-          options={filtered ? filtered : options}
-          onChange={handleChange}
-        />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            padding: '5px',
-          }}
-        >
-          {value.length > 0 && (
-            <Button className='ant_drop_btn' onClick={handleReset}>
-              Сбросить
-            </Button>
-          )}
-          {options.filter((o) => o.checked && o.value).length > 0 && (
-            <Button className='ant_drop_btn' onClick={handleSubmit}>
-              Применить
-            </Button>
-          )}
-        </div>
-      </div>
-    </Menu>
-  )
+      </Menu>
+    )
+  }
 
   return (
     <Dropdown
-      overlay={menu}
+      overlay={menu()}
       trigger={['click']}
       visible={visible}
       onVisibleChange={(val) => setVisible(val)}
@@ -153,12 +163,6 @@ export const OrganisationFilter = ({ value, setValue, params }) => {
 
 const modifyParams = (params) => {
   let prs = params
-  if (params.genders.length > 0) {
-    prs = {
-      ...prs,
-      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
-    }
-  }
   if (params.ages.length > 0) {
     prs = {
       ...prs,

@@ -86,14 +86,14 @@ export const setHorizontalBarOptions = (data) => {
   }
 }
 
-export const setGenderMed = (data) => {
+export const setGenderMed = (data, gender) => {
   let labels = []
   let female = []
   let male = []
 
-  labels = Object.keys(data).sort(
-    (a, b) => +a.substring(0, 2) - +b.substring(0, 2)
-  )
+  labels = Object.keys(data)
+    .filter((key) => data[key] !== null && key)
+    .sort((a, b) => +a.substring(0, 2) - +b.substring(0, 2))
 
   labels.forEach((label) => {
     female = [...female, data[label].female]
@@ -108,14 +108,14 @@ export const setGenderMed = (data) => {
         // backgroundColor: "#bc9d94",
         backgroundColor: '#7fffd480',
         stack: 'Stack 0',
-        data: female,
+        data: gender['Женщины'] && female,
       },
       {
         label: 'Мужчины',
         // backgroundColor: "#728ea2",
         backgroundColor: '#ff7f5080',
         stack: 'Stack 0',
-        data: male,
+        data: gender['Мужчины'] && male,
       },
     ],
   }

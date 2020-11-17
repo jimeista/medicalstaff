@@ -1,28 +1,43 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Menu, Dropdown, Button, Checkbox } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 
 import {
   getFilteredMedicalStaff,
+  setGender,
   resetFilteredMedicalStaff,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-export const GenderFilter = ({ value, setValue, params }) => {
+export const GenderFilter = ({
+  value,
+  setValue,
+  options,
+  setOptions,
+  params,
+}) => {
   const [visible, setVisible] = useState(false)
 
   const dispatch = useDispatch()
 
   const onSubmit = () => {
+    let gender = {}
+    let checked_values = options
+      .filter((o) => o.checked)
+      .map((op) => {
+        gender = { ...gender, [op.value]: op.value }
+        return op.value
+      })
+    dispatch(setGender(gender))
+    setValue(checked_values)
     setVisible(false)
   }
 
   const onReset = () => {
-    setValue((options) =>
+    setOptions((options) =>
       options.map((option) => ({ ...option, checked: false }))
     )
-
-    params.genders = []
+    setValue([])
     let pars = modifyParams(params)
 
     let count = 0
@@ -33,7 +48,7 @@ export const GenderFilter = ({ value, setValue, params }) => {
     })
 
     if (count > 0) {
-      dispatch(getFilteredMedicalStaff(pars))
+      dispatch(getFilteredMedicalStaff({ ...pars, genders: [] }))
     } else {
       dispatch(resetFilteredMedicalStaff())
     }
@@ -42,7 +57,7 @@ export const GenderFilter = ({ value, setValue, params }) => {
   }
 
   const onChange = (_, value) => {
-    setValue((options) =>
+    setOptions((options) =>
       options.map((o) =>
         o.value === value ? { ...o, checked: !o.checked } : o
       )
@@ -54,7 +69,7 @@ export const GenderFilter = ({ value, setValue, params }) => {
       <Menu className='Ant_Drop_Block_Style'>
         <div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {value.map((option) => (
+            {options.map((option) => (
               <Checkbox
                 key={option.value}
                 checked={option.checked}
@@ -72,17 +87,19 @@ export const GenderFilter = ({ value, setValue, params }) => {
               padding: '5px',
             }}
           >
-            {value.filter((o) => o.checked).length > 0 && (
-              <>
+            <>
+              {value.length > 0 && (
                 <Button className='ant_drop_btn' onClick={onReset}>
                   Сбросить
                 </Button>
+              )}
 
+              {options.filter((o) => o.checked).length > 0 && (
                 <Button className='ant_drop_btn' onClick={onSubmit}>
                   Применить
                 </Button>
-              </>
-            )}
+              )}
+            </>
           </div>
         </div>
       </Menu>
@@ -107,12 +124,6 @@ export const GenderFilter = ({ value, setValue, params }) => {
 
 const modifyParams = (params) => {
   let prs = params
-  if (params.genders.length > 0) {
-    prs = {
-      ...prs,
-      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
-    }
-  }
   if (params.ages.length > 0) {
     prs = {
       ...prs,

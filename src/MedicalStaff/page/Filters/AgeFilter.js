@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Menu, Dropdown, Button, Checkbox } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
@@ -8,25 +8,29 @@ import {
   resetFilteredMedicalStaff,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-export const AgeFilter = ({ value, setValue, params }) => {
+export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
   const [visible, setVisible] = useState(false)
 
   const dispatch = useDispatch()
 
   const onSubmit = () => {
-    let checked_values = value.filter((o) => o.checked).map((op) => op.value)
+    let checked_values = options.filter((o) => o.checked).map((op) => op.value)
 
     dispatch(
-      getFilteredMedicalStaff(modifyParams({ ...params, ages: checked_values }))
+      getFilteredMedicalStaff(
+        modifyParams({ ...params, ages: checked_values, genders: [] })
+      )
     )
+    setValue(checked_values)
     setVisible(false)
   }
 
   const onReset = () => {
-    setValue((options) =>
+    setOptions((options) =>
       options.map((option) => ({ ...option, checked: false }))
     )
 
+    setValue([])
     params.ages = []
     let pars = modifyParams(params)
 
@@ -47,7 +51,7 @@ export const AgeFilter = ({ value, setValue, params }) => {
   }
 
   const onChange = (_, value) => {
-    setValue((options) =>
+    setOptions((options) =>
       options.map((o) =>
         o.value === value ? { ...o, checked: !o.checked } : o
       )
@@ -59,7 +63,7 @@ export const AgeFilter = ({ value, setValue, params }) => {
       <Menu className='Ant_Drop_Block_Style'>
         <div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {value.map((option) => (
+            {options.map((option) => (
               <Checkbox
                 key={option.value}
                 checked={option.checked}
@@ -77,17 +81,19 @@ export const AgeFilter = ({ value, setValue, params }) => {
               padding: '5px',
             }}
           >
-            {value.filter((o) => o.checked).length > 0 && (
-              <>
+            <>
+              {value.length > 0 && (
                 <Button className='ant_drop_btn' onClick={onReset}>
                   Сбросить
                 </Button>
+              )}
 
+              {options.filter((o) => o.checked).length > 0 && (
                 <Button className='ant_drop_btn' onClick={onSubmit}>
                   Применить
                 </Button>
-              </>
-            )}
+              )}
+            </>
           </div>
         </div>
       </Menu>
@@ -112,12 +118,12 @@ export const AgeFilter = ({ value, setValue, params }) => {
 
 const modifyParams = (params) => {
   let prs = params
-  if (params.genders.length > 0) {
-    prs = {
-      ...prs,
-      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
-    }
-  }
+  //   if (params.genders.length > 0) {
+  //   prs = {
+  //     ...prs,
+  //     genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
+  //   }
+  // }
   if (params.ages.length > 0) {
     prs = {
       ...prs,
