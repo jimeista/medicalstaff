@@ -73,14 +73,14 @@ export const FILTERS = () => {
             setValue={setOrganisations}
             options={organisations_options}
             setOptions={setOrganisationsOptions}
-            params={{ ages }}
+            params={{ ages, genders }}
             inptRef={inptRef}
           />
         </div>
       )
     }
     return null
-  }, [organisations, ages, organisations_options, organisations_])
+  }, [organisations, ages, genders, organisations_options, organisations_])
 
   const ages_checkbox = useMemo(() => {
     return (
@@ -90,11 +90,11 @@ export const FILTERS = () => {
           setValue={setAges}
           options={ages_options}
           setOptions={setAgesOptions}
-          params={{ 'medical-organisations': organisations }}
+          params={{ 'medical-organisations': organisations, genders }}
         />
       </div>
     )
-  }, [organisations, ages, ages_options])
+  }, [organisations, ages, genders, ages_options])
 
   const genders_checkbox = useMemo(() => {
     return (

@@ -17,9 +17,7 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
     let checked_values = options.filter((o) => o.checked).map((op) => op.value)
 
     dispatch(
-      getFilteredMedicalStaff(
-        modifyParams({ ...params, ages: checked_values, genders: [] })
-      )
+      getFilteredMedicalStaff(modifyParams({ ...params, ages: checked_values }))
     )
     setValue(checked_values)
     setVisible(false)
@@ -118,12 +116,12 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
 
 const modifyParams = (params) => {
   let prs = params
-  //   if (params.genders.length > 0) {
-  //   prs = {
-  //     ...prs,
-  //     genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
-  //   }
-  // }
+  if (params.genders.length > 0) {
+    prs = {
+      ...prs,
+      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
+    }
+  }
   if (params.ages.length > 0) {
     prs = {
       ...prs,

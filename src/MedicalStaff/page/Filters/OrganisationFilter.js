@@ -31,7 +31,6 @@ export const OrganisationFilter = ({
         modifyParams({
           ...params,
           'medical-organisations': checked_values,
-          genders: [],
         })
       )
     )
@@ -163,6 +162,12 @@ export const OrganisationFilter = ({
 
 const modifyParams = (params) => {
   let prs = params
+  if (params.genders.length > 0) {
+    prs = {
+      ...prs,
+      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
+    }
+  }
   if (params.ages.length > 0) {
     prs = {
       ...prs,

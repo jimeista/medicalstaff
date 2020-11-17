@@ -28,6 +28,15 @@ export const GenderFilter = ({
         gender = { ...gender, [op.value]: op.value }
         return op.value
       })
+
+    dispatch(
+      getFilteredMedicalStaff(
+        modifyParams({
+          ...params,
+          genders: checked_values,
+        })
+      )
+    )
     dispatch(setGender(gender))
     setValue(checked_values)
     setVisible(false)
@@ -38,6 +47,7 @@ export const GenderFilter = ({
       options.map((option) => ({ ...option, checked: false }))
     )
     setValue([])
+    params.genders = []
     let pars = modifyParams(params)
 
     let count = 0
@@ -124,6 +134,12 @@ export const GenderFilter = ({
 
 const modifyParams = (params) => {
   let prs = params
+  if (params.genders.length > 0) {
+    prs = {
+      ...prs,
+      genders: params.genders.map((g) => (g === 'Мужчины' ? 'male' : 'female')),
+    }
+  }
   if (params.ages.length > 0) {
     prs = {
       ...prs,
