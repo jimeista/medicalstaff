@@ -1,5 +1,3 @@
-import { keys } from '@material-ui/core/styles/createBreakpoints'
-
 export const setTypeMed = (data) => {
   return {
     labels: Object.keys(data),

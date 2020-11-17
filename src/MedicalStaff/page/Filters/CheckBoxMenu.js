@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Checkbox } from 'antd'
-import { setFilteredData } from '../../features/medicalstaff/medicalstaffSlice'
 
 export const CheckBoxMenu = ({
   options,

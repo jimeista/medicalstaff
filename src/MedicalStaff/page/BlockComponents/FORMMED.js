@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,28 +14,32 @@ export const FORMMED = () => {
   const { medical_care_forms } = useSelector((state) => state.medicalstaff)
 
   useEffect(() => {
-    dispatch(getMedicalCareForms({}))
-  }, [])
+    dispatch(getMedicalCareForms({ params: {}, isFilter: false }))
+  }, [dispatch])
 
   const { status, data, filtered } = medical_care_forms
-  return (
-    <div className='MedicalStaff_body_wrap second_block'>
-      <div className='MedicalStaff_body'>
-        <div className='MedicalStaff_body_graph Doughnut_graph_one'>
-          <span>Форма оказываемой мед. помощи</span>
-          <div className='MedicalStaff_body_graph_item '>
-            {status === 'success' ? (
-              <MedicalStaffChart
-                typeChart='Doughnut'
-                dataSet={setFormMed(filtered ? filtered : data)}
-                option={personalOption2}
-              />
-            ) : (
-              <Spinner />
-            )}
+  const component = useMemo(() => {
+    return (
+      <div className='MedicalStaff_body_wrap second_block'>
+        <div className='MedicalStaff_body'>
+          <div className='MedicalStaff_body_graph Doughnut_graph_one'>
+            <span>Форма оказываемой мед. помощи</span>
+            <div className='MedicalStaff_body_graph_item '>
+              {status === 'success' ? (
+                <MedicalStaffChart
+                  typeChart='Doughnut'
+                  dataSet={setFormMed(filtered ? filtered : data)}
+                  option={personalOption2}
+                />
+              ) : (
+                <Spinner />
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }, [status, filtered, data])
+
+  return component
 }

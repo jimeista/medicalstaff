@@ -1,25 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const getMedicalStaff = createAsyncThunk(
-  'medicalstaff/getMedicalStaff',
-  async (params) => {
-    let url = `/sc-healthcare/api/staff/accumulative-counts?graph=${params.graph}`
-    const res = await axios.post(url, params)
-
-    // console.log(res)
-    return { data: res.data, graph: params.graph }
-  }
-)
-
+//async fetchings
+//--->
 export const getFilteredMedicalStaff = createAsyncThunk(
   'medicalstaff/getFilteredMedicalStaff',
   async (params) => {
     let url = '/sc-healthcare/api/staff/accumulative-counts'
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
     // console.log(res)
-    return res.data
+    return { data: res.data, isFilter: params.isFilter }
   }
 )
 
@@ -27,9 +18,9 @@ export const getFunctionalBlocks = createAsyncThunk(
   'medicalstaff/getFunctionalBlocks',
   async (params) => {
     let url = `/sc-healthcare/api/staff/accumulative-counts?graph=functional-blocks`
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
-    return res.data['functional-blocks']
+    return { data: res.data['functional-blocks'], isFilter: params.isFilter }
   }
 )
 
@@ -37,9 +28,9 @@ export const getMedicalCareForms = createAsyncThunk(
   'medicalstaff/getMedicalCareForms',
   async (params) => {
     let url = `/sc-healthcare/api/staff/accumulative-counts?graph=medical-care-forms`
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
-    return res.data['medical-care-forms']
+    return { data: res.data['medical-care-forms'], isFilter: params.isFilter }
   }
 )
 
@@ -47,9 +38,9 @@ export const getPositionMed = createAsyncThunk(
   'medicalstaff/getPositionMed',
   async (params) => {
     let url = `/sc-healthcare/api/staff/accumulative-counts?graph=posts`
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
-    return res.data.posts
+    return { data: res.data.posts, isFilter: params.isFilter }
   }
 )
 
@@ -57,9 +48,9 @@ export const getTypes = createAsyncThunk(
   'medicalstaff/getTypes',
   async (params) => {
     let url = `/sc-healthcare/api/staff/accumulative-counts?graph=types`
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
-    return res.data.types
+    return { data: res.data.types, isFilter: params.isFilter }
   }
 )
 
@@ -67,9 +58,9 @@ export const getAgesGenders = createAsyncThunk(
   'medicalstaff/getAgeGenders',
   async (params) => {
     let url = `/sc-healthcare/api/staff/accumulative-counts?graph=ages-genders`
-    const res = await axios.post(url, params)
+    const res = await axios.post(url, params.params)
 
-    return res.data['ages-genders']
+    return { data: res.data['ages-genders'], isFilter: params.isFilter }
   }
 )
 
@@ -81,6 +72,9 @@ export const getOrganisations = createAsyncThunk(
   }
 )
 
+//<---
+
+//redux state
 const medicalstaffSlice = createSlice({
   name: 'medicalstaff',
   initialState: {
@@ -125,27 +119,25 @@ const medicalstaffSlice = createSlice({
     setGender: (state, action) => {
       state.gender = action.payload
     },
-    setFilteredData: (state, action) => {
-      state.filtered_data = action.payload
-    },
-    resetMedicalStaff: (state) => {
-      state.data = []
-      state.status = 'idle'
-    },
-    resetFilteredMedicalStaff: (state) => {
-      state.gender = { Мужчины: 'Мужчины', Женщины: 'Женщины' }
-      state.filtered_data = undefined
+    resetFiltered: (state, action) => {
+      state.functional_blocks.filtered = undefined
+      state.medical_care_forms.filtered = undefined
+      state.position_med.filtered = undefined
+      state.types.filtered = undefined
+      state.ages_genders.filtered = undefined
     },
   },
   extraReducers: {
     //async fetching functional-blocks graph
     [getFunctionalBlocks.pending]: (state, action) => {
-      console.log(action.payload)
       state.functional_blocks.status = 'loading'
     },
     [getFunctionalBlocks.fulfilled]: (state, action) => {
       state.functional_blocks.status = 'success'
-      state.functional_blocks.data = action.payload
+      const { isFilter, data } = action.payload
+      isFilter
+        ? (state.functional_blocks.filtered = data)
+        : (state.functional_blocks.data = data)
     },
     [getFunctionalBlocks.failed]: (state, action) => {
       state.functional_blocks.status = 'failed'
@@ -154,94 +146,75 @@ const medicalstaffSlice = createSlice({
 
     //async fetching types graph
     [getTypes.pending]: (state, action) => {
-      console.log(action.payload)
-      state['types'].status = 'loading'
+      state.types.status = 'loading'
     },
     [getTypes.fulfilled]: (state, action) => {
-      state['types'].status = 'success'
-      state['types'].data = action.payload
+      state.types.status = 'success'
+
+      const { isFilter, data } = action.payload
+      isFilter ? (state.types.filtered = data) : (state.types.data = data)
     },
     [getTypes.failed]: (state, action) => {
-      state['types'].status = 'failed'
-      state['types'].error = action.payload
+      state.types.status = 'failed'
+      state.types.error = action.payload
     },
 
     //async fetching posts graph
     [getPositionMed.pending]: (state, action) => {
-      console.log(action.payload)
-      state['position_med'].status = 'loading'
+      state.position_med.status = 'loading'
     },
     [getPositionMed.fulfilled]: (state, action) => {
-      state['position_med'].status = 'success'
-      state['position_med'].data = action.payload
+      state.position_med.status = 'success'
+      const { isFilter, data } = action.payload
+      isFilter
+        ? (state.position_med.filtered = data)
+        : (state.position_med.data = data)
     },
     [getPositionMed.failed]: (state, action) => {
-      state['position_med'].status = 'failed'
-      state['position_med'].error = action.payload
+      state.position_med.status = 'failed'
+      state.position_med.error = action.payload
     },
 
     //async fetching ages-genders graph
     [getAgesGenders.pending]: (state, action) => {
-      console.log(action.payload)
-      state['ages_genders'].status = 'loading'
+      state.ages_genders.status = 'loading'
     },
     [getAgesGenders.fulfilled]: (state, action) => {
-      state['ages_genders'].status = 'success'
-      state['ages_genders'].data = action.payload
+      state.ages_genders.status = 'success'
+      const { isFilter, data } = action.payload
+      isFilter
+        ? (state.ages_genders.filtered = data)
+        : (state.ages_genders.data = data)
     },
     [getAgesGenders.failed]: (state, action) => {
-      state['ages_genders'].status = 'failed'
-      state['ages_genders'].error = action.payload
+      state.ages_genders.status = 'failed'
+      state.ages_genders.error = action.payload
     },
 
     //async fetching medical-care-forms graph
     [getMedicalCareForms.pending]: (state, action) => {
-      console.log(action.payload)
       state.medical_care_forms.status = 'loading'
     },
     [getMedicalCareForms.fulfilled]: (state, action) => {
       state.medical_care_forms.status = 'success'
-      state.medical_care_forms.data = action.payload
+      const { isFilter, data } = action.payload
+      isFilter
+        ? (state.medical_care_forms.filtered = data)
+        : (state.medical_care_forms.data = data)
     },
     [getMedicalCareForms.failed]: (state, action) => {
       state.medical_care_forms.status = 'failed'
       state.medical_care_forms.error = action.payload
     },
 
-    ///old
-    // [getMedicalStaff.pending]: (state, action) => {
-    //   state.status = 'loading'
-    // },
-    // [getMedicalStaff.fulfilled]: (state, action) => {
-    //   state.status = 'success'
-    //   state.data = action.payload
-    // },
-    // [getMedicalStaff.failed]: (state, action) => {
-    //   state.status = 'failed'
-    //   state.error = action.payload
-    // },
-    // [getFilteredMedicalStaff.pending]: (state, action) => {
-    //   state.status = 'loading'
-    // },
-    // [getFilteredMedicalStaff.fulfilled]: (state, action) => {
-    //   state.status = 'success'
-    //   state.filtered_data = action.payload
-    // },
-    // [getFilteredMedicalStaff.failed]: (state, action) => {
-    //   state.status = 'failed'
-    //   state.error = action.payload
-    // },
+    //async fetch organisations list
     [getOrganisations.fulfilled]: (state, action) => {
       state.organisations_ = action.payload
     },
   },
 })
 
-export const {
-  setFilteredData,
-  setGender,
-  resetMedicalStaff,
-  resetFilteredMedicalStaff,
-} = medicalstaffSlice.actions
+//actions
+export const { setGender, resetFiltered } = medicalstaffSlice.actions
 
 export default medicalstaffSlice.reducer

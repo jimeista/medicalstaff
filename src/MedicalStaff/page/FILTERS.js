@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useCallback, useRef, useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button } from 'antd'
 
 import {
-  getOrganisations,
-  resetFilteredMedicalStaff,
+  resetFiltered,
+  setGender,
 } from '../features/medicalstaff/medicalstaffSlice'
 
 import { AgeFilter } from './Filters/AgeFilter'
@@ -12,39 +12,16 @@ import { GenderFilter } from './Filters/GenderFilter'
 import { OrganisationFilter } from './Filters/OrganisationFilter'
 
 export const FILTERS = () => {
-  const { organisations_ } = useSelector((state) => state.medicalstaff)
   const inptRef = useRef(null)
 
   const [organisations, setOrganisations] = useState([])
   const [ages, setAges] = useState([])
   const [genders, setGenders] = useState([])
   let [organisations_options, setOrganisationsOptions] = useState([])
-  let [ages_options, setAgesOptions] = useState(
-    ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +'].map((value) => ({
-      value,
-      checked: false,
-    }))
-  )
-  let [genders_options, setGendersOptions] = useState(
-    ['Мужчины', 'Женщины'].map((value) => ({
-      value,
-      checked: false,
-    }))
-  )
-
-  useEffect(() => {
-    if (organisations_.length > 0) {
-      setOrganisationsOptions(
-        organisations_.map((value) => ({ value, checked: false }))
-      )
-    }
-  }, [organisations_])
+  let [ages_options, setAgesOptions] = useState([])
+  let [genders_options, setGendersOptions] = useState([])
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getOrganisations())
-  }, [])
 
   const handleReset = useCallback(() => {
     setOrganisationsOptions((state) =>
@@ -60,28 +37,34 @@ export const FILTERS = () => {
       inptRef.current.state.value = ''
     }
 
-    dispatch(resetFilteredMedicalStaff())
-  }, [])
+    dispatch(setGender({ Мужчины: 'Мужчины', Женщины: 'Женщины' }))
+    dispatch(resetFiltered())
+  }, [dispatch])
 
-  const organisation_checkbox = useMemo(() => {
-    if (organisations_.length > 0) {
-      return (
-        <div className='MedicalStaff_filter_item'>
-          <OrganisationFilter
-            value={organisations}
-            setValue={setOrganisations}
-            options={organisations_options}
-            setOptions={setOrganisationsOptions}
-            params={{ ages, genders }}
-            inptRef={inptRef}
-          />
-        </div>
-      )
+  const resetBtn = () => {
+    if (ages.length > 0 || genders.length > 0 || organisations.length > 0) {
+      return <Button onClick={handleReset}> reset </Button>
     }
-    return null
-  }, [organisations, ages, genders, organisations_options, organisations_])
 
-  const ages_checkbox = useMemo(() => {
+    return null
+  }
+
+  const organisations_component = useMemo(() => {
+    return (
+      <div className='MedicalStaff_filter_item'>
+        <OrganisationFilter
+          value={organisations}
+          setValue={setOrganisations}
+          options={organisations_options}
+          setOptions={setOrganisationsOptions}
+          params={{ ages, genders }}
+          inptRef={inptRef}
+        />
+      </div>
+    )
+  }, [ages, genders, organisations, organisations_options])
+
+  const ages_component = useMemo(() => {
     return (
       <div className='MedicalStaff_filter_item'>
         <AgeFilter
@@ -93,9 +76,9 @@ export const FILTERS = () => {
         />
       </div>
     )
-  }, [organisations, ages, genders, ages_options])
+  }, [ages, genders, organisations, ages_options])
 
-  const genders_checkbox = useMemo(() => {
+  const genders_component = useMemo(() => {
     return (
       <div className='MedicalStaff_filter_item'>
         <GenderFilter
@@ -107,22 +90,14 @@ export const FILTERS = () => {
         />
       </div>
     )
-  }, [organisations, ages, genders, genders_options])
-
-  const resetBtn = () => {
-    if (ages.length > 0 || genders.length > 0 || organisations.length > 0) {
-      return <Button onClick={handleReset}> reset </Button>
-    }
-
-    return null
-  }
+  }, [ages, genders, organisations, genders_options])
 
   return (
     <div className='MedicalStaff_filter'>
       <div className='MedicalStaff_filter_filter'>
-        {organisation_checkbox}
-        {ages_checkbox}
-        {genders_checkbox}
+        {organisations_component}
+        {ages_component}
+        {genders_component}
         {resetBtn()}
       </div>
     </div>

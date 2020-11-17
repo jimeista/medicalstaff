@@ -1,13 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Dropdown, Button, Menu, Input } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import {
-  getFilteredMedicalStaff,
-  resetFilteredMedicalStaff,
+  getAgesGenders,
+  getFunctionalBlocks,
+  getMedicalCareForms,
+  getPositionMed,
+  getTypes,
+  getOrganisations,
+  resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
 import { CheckBoxMenu } from './CheckBoxMenu'
@@ -21,11 +26,31 @@ export const OrganisationFilter = ({
   inptRef,
 }) => {
   const dispatch = useDispatch()
+  const { organisations_ } = useSelector((state) => state.medicalstaff)
+
   const [visible, setVisible] = useState(false)
   const [filtered, setFiltered] = useState()
 
+  useEffect(() => {
+    dispatch(getOrganisations())
+  }, [])
+
+  useEffect(() => {
+    if (organisations_.length > 0) {
+      setOptions(organisations_.map((value) => ({ value, checked: false })))
+    }
+  }, [organisations_])
+
+  const filterAll = (pars) => {
+    dispatch(getAgesGenders({ params: pars, isFilter: true }))
+    dispatch(getFunctionalBlocks({ params: pars, isFilter: true }))
+    dispatch(getMedicalCareForms({ params: pars, isFilter: true }))
+    dispatch(getPositionMed({ params: pars, isFilter: true }))
+    dispatch(getTypes({ params: pars, isFilter: true }))
+  }
+
   const onSubmit = (pars) => {
-    dispatch(getFilteredMedicalStaff(pars))
+    filterAll(pars)
   }
 
   const onReset = (pars) => {
@@ -42,9 +67,9 @@ export const OrganisationFilter = ({
     })
 
     if (count > 0) {
-      dispatch(getFilteredMedicalStaff(pars))
+      filterAll(pars)
     } else {
-      dispatch(resetFilteredMedicalStaff())
+      dispatch(resetFiltered())
     }
   }
 

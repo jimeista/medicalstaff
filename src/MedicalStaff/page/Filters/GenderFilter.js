@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Dropdown, Button, Menu } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import {
-  getFilteredMedicalStaff,
+  getAgesGenders,
+  getFunctionalBlocks,
+  getMedicalCareForms,
+  getPositionMed,
+  getTypes,
   setGender,
-  resetFilteredMedicalStaff,
+  resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
 import { CheckBoxMenu } from './CheckBoxMenu'
@@ -22,6 +26,23 @@ export const GenderFilter = ({
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
+  useEffect(() => {
+    setOptions(
+      ['Мужчины', 'Женщины'].map((value) => ({
+        value,
+        checked: false,
+      }))
+    )
+  }, [setOptions])
+
+  const filterAll = (pars) => {
+    dispatch(getAgesGenders({ params: pars, isFilter: true }))
+    dispatch(getFunctionalBlocks({ params: pars, isFilter: true }))
+    dispatch(getMedicalCareForms({ params: pars, isFilter: true }))
+    dispatch(getPositionMed({ params: pars, isFilter: true }))
+    dispatch(getTypes({ params: pars, isFilter: true }))
+  }
+
   const onSubmit = (pars) => {
     let gender = {}
     options.forEach((o) => {
@@ -30,8 +51,7 @@ export const GenderFilter = ({
       }
     })
     dispatch(setGender(gender))
-
-    dispatch(getFilteredMedicalStaff(pars))
+    filterAll(pars)
   }
 
   const onReset = (pars) => {
@@ -42,10 +62,12 @@ export const GenderFilter = ({
       }
     })
 
+    dispatch(setGender({ Мужчины: 'Мужчины', Женщины: 'Женщины' }))
+
     if (count > 0) {
-      dispatch(getFilteredMedicalStaff({ ...pars, genders: [] }))
+      filterAll(pars)
     } else {
-      dispatch(resetFilteredMedicalStaff())
+      dispatch(resetFiltered())
     }
   }
 

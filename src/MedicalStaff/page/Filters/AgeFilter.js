@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Dropdown, Button, Menu } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 import {
-  getFilteredMedicalStaff,
-  resetFilteredMedicalStaff,
+  getAgesGenders,
+  getFunctionalBlocks,
+  getMedicalCareForms,
+  getPositionMed,
+  getTypes,
+  resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
 import { CheckBoxMenu } from './CheckBoxMenu'
@@ -15,8 +19,25 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
+  useEffect(() => {
+    setOptions(
+      ['20-29', '30-39', '40-49', '50-59', '60-69', '70 +'].map((value) => ({
+        value,
+        checked: false,
+      }))
+    )
+  }, [setOptions])
+
+  const filterAll = (pars) => {
+    dispatch(getAgesGenders({ params: pars, isFilter: true }))
+    dispatch(getFunctionalBlocks({ params: pars, isFilter: true }))
+    dispatch(getMedicalCareForms({ params: pars, isFilter: true }))
+    dispatch(getPositionMed({ params: pars, isFilter: true }))
+    dispatch(getTypes({ params: pars, isFilter: true }))
+  }
+
   const onSubmit = (pars) => {
-    dispatch(getFilteredMedicalStaff(pars))
+    filterAll(pars)
   }
 
   const onReset = (pars) => {
@@ -28,9 +49,9 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
     })
 
     if (count > 0) {
-      dispatch(getFilteredMedicalStaff(pars))
+      filterAll(pars)
     } else {
-      dispatch(resetFilteredMedicalStaff())
+      dispatch(resetFiltered())
     }
   }
 
