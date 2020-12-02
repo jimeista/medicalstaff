@@ -13,9 +13,9 @@ import {
   resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-import { CheckBoxMenu } from './CheckBoxMenu'
+import CheckBoxMenu from './CheckBoxMenu'
 
-export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
+const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
@@ -55,21 +55,23 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
     }
   }
 
-  const menu = (
-    <Menu className='Ant_Drop_Block_Style'>
-      <CheckBoxMenu
-        options={options}
-        setOptions={setOptions}
-        value={value}
-        setValue={setValue}
-        setVisible={setVisible}
-        params={params}
-        type={'ages'}
-        handleSubmit={onSubmit}
-        handleReset={onReset}
-      />
-    </Menu>
-  )
+  const menu = () => {
+    return (
+      <Menu className='Ant_Drop_Block_Style'>
+        <CheckBoxMenu
+          options={options}
+          setOptions={setOptions}
+          value={value}
+          setValue={setValue}
+          setVisible={setVisible}
+          params={params}
+          type={'ages'}
+          handleSubmit={onSubmit}
+          handleReset={onReset}
+        />
+      </Menu>
+    )
+  }
 
   return (
     <Dropdown
@@ -86,3 +88,5 @@ export const AgeFilter = ({ value, setValue, options, setOptions, params }) => {
     </Dropdown>
   )
 }
+
+export default React.memo(AgeFilter)

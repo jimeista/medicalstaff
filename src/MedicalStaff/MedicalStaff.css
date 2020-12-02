@@ -89,7 +89,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
 }
 
@@ -450,8 +450,7 @@
   .MedicalStaff_body_wrap:nth-child(1),
 .btn_action.first_off.second_on.third_off.fourth_off
   .MedicalStaff_body_wrap:nth-child(3),
-.btn_action.first_off.second_on.third_off.fourth_off
-  .MedicalStaff_body_wrap:nth-child(4),
+.btn_action.first_off.second_on.third_off.fourth_off.MedicalStaff_body_wrap:nth-child(4),
 .btn_action.first_off.second_off.third_on.fourth_off
   .MedicalStaff_body_wrap:nth-child(2),
 .btn_action.first_off.second_off.third_off.fourth_on
@@ -492,18 +491,23 @@
 .btn_action.first_on.second_off.third_on.fourth_off
   .MedicalStaff_body_wrap:nth-child(2) {
   grid-column: 2 / span 1;
-  grid-row: 1 / span 2;
+  grid-row: 1 / span 3;
 }
 
 /*first_on.second_off.third_off.fourth_on*/
 .btn_action.first_on.second_off.third_off.fourth_on .MedicalStaff_body_wrapper {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.btn_action.first_on.second_off.third_off.fourth_on
+  .MedicalStaff_body_wrap:nth-child(1) {
+  grid-row: 1 / span 2;
 }
 
 /*first_off.second_on.third_off.fourth_on*/
 .btn_action.first_off.second_on.third_off.fourth_on .MedicalStaff_body_wrapper {
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .btn_action.first_off.second_on.third_off.fourth_on
@@ -553,6 +557,153 @@
   grid-row: 1 / span 2;
 }
 
+.btn_action.first_on.second_off.third_off.fourth_off
+  .MedicalStaff_body_wrapper {
+  height: 100%;
+}
+.Ant_Drop_Block_Style .ant-checkbox-wrapper {
+  color: white;
+  /*  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;*/
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+.Check_scroll_wrap .ant-checkbox-wrapper {
+  justify-content: flex-start;
+  align-items: center;
+}
+.Ant_Drop_Block_Style > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.Ant_Drop_Block_Style {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.Ant_Drop_Block_Style .ant-input-affix-wrapper {
+  background: inherit;
+  margin: 5px 0;
+}
+.Ant_Drop_Block_Style .ant-input-affix-wrapper:hover {
+  border-color: white;
+}
+.Ant_Drop_Block_Style .ant-input-affix-wrapper input {
+  background: inherit;
+  color: white;
+}
+.Ant_Drop_Block_Style .ant-checkbox + span,
+.ant-checkbox-wrapper + .ant-checkbox-wrapper {
+  margin: 0;
+  padding: 0;
+}
+.ant-dropdown.ant-dropdown-placement-bottomLeft {
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+}
+.ant-dropdown.ant-dropdown-placement-bottomLeft > div {
+  align-self: flex-start;
+}
+.Check_scroll {
+  max-height: 300px;
+  overflow: scroll;
+  padding-top: 5px;
+}
+.Check_scroll .ant-checkbox-wrapper > span:last-child {
+  padding-left: 5px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-disabled .ant-checkbox-inner,
+.ant-checkbox-group-item.ant-checkbox-wrapper:hover,
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #414e60;
+}
+.ant-checkbox-checked .ant-checkbox-inner,
+.Ant_Drop_Block_Style_item_list .ant-checkbox-checked .ant-checkbox-inner {
+  background: white;
+  border-color: white;
+}
+.ant-checkbox-checked .ant-checkbox-inner::after,
+.Ant_Drop_Block_Style_item_list
+  .ant-checkbox-checked
+  .ant-checkbox-inner::after {
+  display: none;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner,
+.ant-checkbox-checked::after {
+  border-color: white;
+}
+.Ant_Drop_Block_Style_Checkbox .ant-checkbox-inner {
+  background: inherit;
+}
+.ant-checkbox-wrapper.ant-checkbox-group-item
+  .ant-checkbox
+  .ant-checkbox-checked
+  .ant-checkbox-inner,
+.Ant_Drop_Block_Style_item_list .ant-checkbox-checked .ant-checkbox-inner,
+.Ant_Drop_Block_Style_Checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: white;
+  border-color: white;
+}
+.Ant_Drop_Block_Style_btn {
+}
+.default_btn_style {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
+  color: white;
+
+  border-radius: 2px;
+  padding: 5px;
+}
+.Check_scroll_wrap {
+  width: 100%;
+}
+.Check_scroll_wrap > div:last-child {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.self_style {
+  align-self: flex-end;
+}
+.clear_filter_wrap {
+  position: relative;
+  height: 100%;
+  width: max-content;
+}
+.clear_filter {
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+.clear_filter svg {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.clear_filter svg:hover g path {
+  fill: black;
+}
+.MedicalStaff_filter_filter {
+  padding-right: 35px;
+}
+.medFilter .ant-checkbox-wrapper {
+  align-items: flex-start;
+}
+.MedicalStaff_title_block {
+  font-size: clamp(14px, 4vw, 22px);
+}
 @media (max-width: 1350px) {
   .MedicalStaff_body_wrapper {
     grid-template-columns: 1fr 1fr;
@@ -798,5 +949,25 @@
 @media (max-width: 450px) {
   .MedicalStaff_body_wrap:nth-child(5) canvas {
     padding-top: 20px;
+  }
+  .MedicalStaff_filter_filter {
+    padding-right: 0;
+  }
+  .clear_filter_wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .clear_filter {
+    position: relative;
+    top: 0;
+  }
+  .MedicalStaff_filter_item,
+  .MedicalStaff_filter_item .ant_drop_btn {
+    width: 100%;
+  }
+  .Ant_Drop_Block_Style {
+    width: 100%;
   }
 }

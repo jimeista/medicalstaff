@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import 'chartjs-plugin-datalabels'
 
-import { Header } from './Header'
-import { FILTERS } from './FILTERS'
+import Header from './Header'
+import FILTERS from './FILTERS'
 
-import { FBMED } from './BlockComponents/FBMED'
-import { FORMMED } from './BlockComponents/FORMMED'
-import { POSITIONMED } from './BlockComponents/POSITIONMED'
-import { TYPEMED } from './BlockComponents/TYPEMED'
-import { GENDERMED } from './BlockComponents/GENDERMED'
+import FBMED from './BlockComponents/FBMED'
+import FORMMED from './BlockComponents/FORMMED'
+import POSITIONMED from './BlockComponents/POSITIONMED'
+import TYPEMED from './BlockComponents/TYPEMED'
+import GENDERMED from './BlockComponents/GENDERMED'
 
 const MedicalStaffBlock = () => {
   const [ActiveChart1, setActiveChart1] = useState(true)

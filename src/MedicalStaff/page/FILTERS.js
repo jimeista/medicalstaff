@@ -1,17 +1,16 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button } from 'antd'
-
+import { ReactComponent as IconFilter } from '../img/icons8-clear-filters-100.svg'
 import {
   resetFiltered,
   setGender,
 } from '../features/medicalstaff/medicalstaffSlice'
 
-import { AgeFilter } from './Filters/AgeFilter'
-import { GenderFilter } from './Filters/GenderFilter'
-import { OrganisationFilter } from './Filters/OrganisationFilter'
+import AgeFilter from './Filters/AgeFilter'
+import GenderFilter from './Filters/GenderFilter'
+import OrganisationFilter from './Filters/OrganisationFilter'
 
-export const FILTERS = () => {
+const FILTERS = () => {
   const inptRef = useRef(null)
 
   const [organisations, setOrganisations] = useState([])
@@ -43,7 +42,16 @@ export const FILTERS = () => {
 
   const resetBtn = () => {
     if (ages.length > 0 || genders.length > 0 || organisations.length > 0) {
-      return <Button onClick={handleReset}> reset </Button>
+      return (
+        <div
+          className='MedicalStaff_filter_item clear_filter_wrap '
+          onClick={handleReset}
+        >
+          <div className='clear_filter'>
+            <IconFilter style={{ height: '100%' }} />
+          </div>
+        </div>
+      )
     }
 
     return null
@@ -103,3 +111,5 @@ export const FILTERS = () => {
     </div>
   )
 }
+
+export default React.memo(FILTERS)

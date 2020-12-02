@@ -99,7 +99,7 @@ const MedicalStaffBlock = () => {
                 <div className={`MedicalStaff_Tab_One_Style btn_action ${ActiveChart1 ? "first_on" : "first_off"} ${ActiveChart2 ? "second_on" : "second_off"} ${ActiveChart3 ? "third_on" : "third_off"} ${ActiveChart4 ? "fourth_on" : "fourth_off"}`}>
                     <div className="MedicalStaff_filter">
                         <div className="MedicalStaff_filter_filter">
-                            <div className="MedicalStaff_filter_item">
+                            <div className="MedicalStaff_filter_item ">
                                 <CheckBoxMenu titleBtn={"Мед. организация"} checkBox={name} search={true}/>
                             </div>
                             <div className="MedicalStaff_filter_item">

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Checkbox } from 'antd'
+import { Checkbox } from 'antd'
 
-export const CheckBoxMenu = ({
+const CheckBoxMenu = ({
   options,
   setOptions,
   value,
@@ -37,54 +37,43 @@ export const CheckBoxMenu = ({
     )
   }
 
-  const menu = () => {
-    return (
-      <>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'scroll',
-            maxHeight: 300,
-            padding: 5,
-          }}
-        >
-          {options.map((option) => (
-            <Checkbox
-              key={option.value}
-              checked={option.checked}
-              onChange={(_) => onChange(_, option.value)}
-            >
-              {option.value}
-            </Checkbox>
-          ))}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-            padding: '5px',
-          }}
-        >
-          {value.length > 0 && (
-            <Button className='ant_drop_btn' onClick={onReset}>
+  return (
+    <div className='Check_scroll_wrap'>
+      <div className='Check_scroll'>
+        {options.map((option) => (
+          <Checkbox
+            key={option.value}
+            checked={option.checked}
+            onChange={(_) => onChange(_, option.value)}
+          >
+            {option.value}
+          </Checkbox>
+        ))}
+      </div>
+      <div>
+        {value.length > 0 && (
+          <div className='Ant_Drop_Block_Style_btn'>
+            <span className='ant_drop_btn default_btn_style ' onClick={onReset}>
               Сбросить
-            </Button>
-          )}
-
-          {options.filter((o) => o.checked).length > 0 && (
-            <Button className='ant_drop_btn' onClick={onSubmit}>
+            </span>
+          </div>
+        )}
+        {options.filter((o) => o.checked).length > 0 && (
+          <div className='Ant_Drop_Block_Style_btn'>
+            <span
+              className='ant_drop_btn default_btn_style self_style'
+              onClick={onSubmit}
+            >
               Применить
-            </Button>
-          )}
-        </div>
-      </>
-    )
-  }
-
-  return menu()
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
+
+export default React.memo(CheckBoxMenu)
 
 const modifyParams = (params) => {
   let prs = params

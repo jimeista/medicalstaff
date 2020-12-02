@@ -5,7 +5,7 @@ import { ReactComponent as IconChart } from '../img/bar-chart.svg'
 import { ReactComponent as IconChart3 } from '../img/chart_r.svg'
 import { ReactComponent as IconChart4 } from '../img/chart_lite.svg'
 
-export const Header = ({
+const Header = ({
   ActiveChart1,
   ActiveChart2,
   ActiveChart3,
@@ -17,7 +17,7 @@ export const Header = ({
 }) => {
   return (
     <div className='MedicalStaff_title_wrap'>
-      <div className='MedicalStaff_title_block'>ПЕРСОНАЛ</div>
+      <div className='MedicalStaff_title_block'>Медицинский персонал</div>
       <div className='MedicalStaff_filter_btn'>
         <>
           {' '}
@@ -70,3 +70,5 @@ export const Header = ({
     </div>
   )
 }
+
+export default React.memo(Header)

@@ -9,7 +9,7 @@ import { MedicalStaffChart } from '../MedicalStaffChart'
 import { personalOption2 } from '../ChartOption'
 import { setFormMed } from '../../utils/chart'
 
-export const FORMMED = () => {
+const FORMMED = () => {
   const dispatch = useDispatch()
   const { medical_care_forms } = useSelector((state) => state.medicalstaff)
 
@@ -43,3 +43,5 @@ export const FORMMED = () => {
 
   return component
 }
+
+export default React.memo(FORMMED)

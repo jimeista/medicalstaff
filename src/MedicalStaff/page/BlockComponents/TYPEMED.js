@@ -9,7 +9,7 @@ import { MedicalStaffChart } from '../MedicalStaffChart'
 import { personalOption1 } from '../ChartOption'
 import { setTypeMed } from '../../utils/chart'
 
-export const TYPEMED = () => {
+const TYPEMED = () => {
   const dispatch = useDispatch()
   const { types } = useSelector((state) => state.medicalstaff)
 
@@ -45,3 +45,5 @@ export const TYPEMED = () => {
 
   return component
 }
+
+export default React.memo(TYPEMED)

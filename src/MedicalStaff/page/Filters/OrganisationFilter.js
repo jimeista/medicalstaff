@@ -15,9 +15,9 @@ import {
   resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-import { CheckBoxMenu } from './CheckBoxMenu'
+import CheckBoxMenu from './CheckBoxMenu'
 
-export const OrganisationFilter = ({
+const OrganisationFilter = ({
   value,
   setValue,
   options,
@@ -82,19 +82,13 @@ export const OrganisationFilter = ({
   }
 
   const menu = (
-    <Menu className='Ant_Drop_Block_Style'>
-      <div>
-        <Input
-          placeholder='Поиск'
-          allowClear
-          onChange={onSearch}
-          ref={inptRef}
-        />
-      </div>
+    <Menu className='Ant_Drop_Block_Style medFilter'>
+      <Input placeholder='Поиск' allowClear onChange={onSearch} ref={inptRef} />
+
       <CheckBoxMenu
         value={value}
         setValue={setValue}
-        options={filtered ? filtered : options}
+        options={filtered ? filtered : options.slice(0, 50)}
         setOptions={setOptions}
         setVisible={setVisible}
         params={params}
@@ -120,3 +114,5 @@ export const OrganisationFilter = ({
     </Dropdown>
   )
 }
+
+export default React.memo(OrganisationFilter)

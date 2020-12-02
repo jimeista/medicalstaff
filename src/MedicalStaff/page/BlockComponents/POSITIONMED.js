@@ -11,7 +11,7 @@ import {
   setHorizontalBarOptions,
 } from '../../utils/chart'
 
-export const POSITIONMED = () => {
+const POSITIONMED = () => {
   const dispatch = useDispatch()
   const { position_med } = useSelector((state) => state.medicalstaff)
   const { status, data, filtered } = position_med
@@ -52,3 +52,5 @@ export const POSITIONMED = () => {
 
   return component
 }
+
+export default React.memo(POSITIONMED)

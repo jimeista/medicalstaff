@@ -128,7 +128,7 @@ const medicalstaffSlice = createSlice({
     },
   },
   extraReducers: {
-    //async fetching functional-blocks graph
+    //get functional-blocks graph
     [getFunctionalBlocks.pending]: (state, action) => {
       state.functional_blocks.status = 'loading'
     },
@@ -139,12 +139,12 @@ const medicalstaffSlice = createSlice({
         ? (state.functional_blocks.filtered = data)
         : (state.functional_blocks.data = data)
     },
-    [getFunctionalBlocks.failed]: (state, action) => {
+    [getFunctionalBlocks.rejected]: (state, action) => {
       state.functional_blocks.status = 'failed'
       state.functional_blocks.error = action.payload
     },
 
-    //async fetching types graph
+    //get types graph
     [getTypes.pending]: (state, action) => {
       state.types.status = 'loading'
     },
@@ -154,12 +154,12 @@ const medicalstaffSlice = createSlice({
       const { isFilter, data } = action.payload
       isFilter ? (state.types.filtered = data) : (state.types.data = data)
     },
-    [getTypes.failed]: (state, action) => {
+    [getTypes.rejected]: (state, action) => {
       state.types.status = 'failed'
       state.types.error = action.payload
     },
 
-    //async fetching posts graph
+    //get posts graph
     [getPositionMed.pending]: (state, action) => {
       state.position_med.status = 'loading'
     },
@@ -170,12 +170,12 @@ const medicalstaffSlice = createSlice({
         ? (state.position_med.filtered = data)
         : (state.position_med.data = data)
     },
-    [getPositionMed.failed]: (state, action) => {
+    [getPositionMed.rejected]: (state, action) => {
       state.position_med.status = 'failed'
       state.position_med.error = action.payload
     },
 
-    //async fetching ages-genders graph
+    //get ages-genders graph
     [getAgesGenders.pending]: (state, action) => {
       state.ages_genders.status = 'loading'
     },
@@ -186,12 +186,12 @@ const medicalstaffSlice = createSlice({
         ? (state.ages_genders.filtered = data)
         : (state.ages_genders.data = data)
     },
-    [getAgesGenders.failed]: (state, action) => {
+    [getAgesGenders.rejected]: (state, action) => {
       state.ages_genders.status = 'failed'
       state.ages_genders.error = action.payload
     },
 
-    //async fetching medical-care-forms graph
+    //get medical-care-forms graph
     [getMedicalCareForms.pending]: (state, action) => {
       state.medical_care_forms.status = 'loading'
     },
@@ -202,12 +202,12 @@ const medicalstaffSlice = createSlice({
         ? (state.medical_care_forms.filtered = data)
         : (state.medical_care_forms.data = data)
     },
-    [getMedicalCareForms.failed]: (state, action) => {
+    [getMedicalCareForms.rejected]: (state, action) => {
       state.medical_care_forms.status = 'failed'
       state.medical_care_forms.error = action.payload
     },
 
-    //async fetch organisations list
+    //get organisations list
     [getOrganisations.fulfilled]: (state, action) => {
       state.organisations_ = action.payload
     },

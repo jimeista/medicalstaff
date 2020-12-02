@@ -9,7 +9,7 @@ import { MedicalStaffChart } from '../MedicalStaffChart'
 import { TabTwoPOption } from '../ChartOption'
 import { setGenderMed } from '../../utils/chart'
 
-export const GENDERMED = () => {
+const GENDERMED = () => {
   const dispatch = useDispatch()
   const { ages_genders, gender } = useSelector((state) => state.medicalstaff)
 
@@ -44,3 +44,5 @@ export const GENDERMED = () => {
 
   return component
 }
+
+export default React.memo(GENDERMED)

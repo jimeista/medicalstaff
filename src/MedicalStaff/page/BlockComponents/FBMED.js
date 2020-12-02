@@ -11,7 +11,7 @@ import {
   setHorizontalBarOptions,
 } from '../../utils/chart'
 
-export const FBMED = () => {
+const FBMED = () => {
   const dispatch = useDispatch()
   const { functional_blocks } = useSelector((state) => state.medicalstaff)
   const { status, data, filtered } = functional_blocks
@@ -54,3 +54,5 @@ export const FBMED = () => {
 
   return component
 }
+
+export default React.memo(FBMED)

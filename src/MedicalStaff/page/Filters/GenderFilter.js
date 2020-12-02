@@ -14,15 +14,9 @@ import {
   resetFiltered,
 } from '../../features/medicalstaff/medicalstaffSlice'
 
-import { CheckBoxMenu } from './CheckBoxMenu'
+import CheckBoxMenu from './CheckBoxMenu'
 
-export const GenderFilter = ({
-  value,
-  setValue,
-  options,
-  setOptions,
-  params,
-}) => {
+const GenderFilter = ({ value, setValue, options, setOptions, params }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
 
@@ -102,3 +96,5 @@ export const GenderFilter = ({
     </Dropdown>
   )
 }
+
+export default React.memo(GenderFilter)
